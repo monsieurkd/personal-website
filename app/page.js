@@ -185,9 +185,10 @@ export default function Home() {
               />
             </div>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Senior Software Developer with 5+ years of experience building scalable web applications. 
-              Specialized in React, Node.js, and cloud architecture. Passionate about leading teams and 
-              delivering high-quality software solutions.
+              Senior Software Developer with 5+ years of experience building
+              scalable web applications. Specialized in React, Node.js, and
+              cloud architecture. Passionate about leading teams and delivering
+              high-quality software solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -237,15 +238,17 @@ export default function Home() {
                   Senior Software Developer & Tech Lead
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  Hello! I'm David Kieu, a senior software developer with over 5 years of 
-                  experience building scalable web applications and leading development teams. 
-                  I specialize in full-stack development with expertise in modern JavaScript 
-                  frameworks and cloud technologies.
+                  Hello! I'm David Kieu, a senior software developer with over 5
+                  years of experience building scalable web applications and
+                  leading development teams. I specialize in full-stack
+                  development with expertise in modern JavaScript frameworks and
+                  cloud technologies.
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  Throughout my career, I've successfully delivered 20+ production applications, 
-                  led teams of 3-5 developers, and implemented CI/CD pipelines that improved 
-                  deployment efficiency by 60%. I'm passionate about clean code, system 
+                  Throughout my career, I've successfully delivered 20+
+                  production applications, led teams of 3-5 developers, and
+                  implemented CI/CD pipelines that improved deployment
+                  efficiency by 60%. I'm passionate about clean code, system
                   architecture, and mentoring junior developers.
                 </p>
                 <div className="flex flex-wrap gap-4">

@@ -54,8 +54,9 @@ export default function Contact() {
             </span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you. 
-            Let's discuss how we can work together to bring your ideas to life.
+            Have a project in mind or want to collaborate? I'd love to hear from
+            you. Let's discuss how we can work together to bring your ideas to
+            life.
           </p>
         </div>
       </section>
