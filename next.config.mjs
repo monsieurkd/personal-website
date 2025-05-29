@@ -3,14 +3,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'example.com',
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
-    formats: ["image/webp", "image/avif"],
-  },
-  experimental: {
-    optimizeCss: true,
   },
   compress: true,
   poweredByHeader: false,
