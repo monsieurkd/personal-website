@@ -1,101 +1,301 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from "next/image";
+import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
+
+const TypewriterText = ({ words, className }) => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[currentWordIndex];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setCurrentText(word.substring(0, currentText.length + 1));
+        if (currentText === word) {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        setCurrentText(word.substring(0, currentText.length - 1));
+        if (currentText === '') {
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 50 : 150);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, currentWordIndex, words]);
+
+  return <span className={className}>{currentText}</span>;
+};
+
+const SkillCard = ({ skill, level, icon }) => (
+  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+    <div className="text-3xl mb-4">{icon}</div>
+    <h3 className="text-xl font-semibold mb-2">{skill}</h3>
+    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+      <div 
+        className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000"
+        style={{ width: `${level}%` }}
+      ></div>
+    </div>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{level}%</p>
+  </div>
+);
+
+const ProjectCard = ({ title, description, tech, demoUrl, codeUrl, image }) => (
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+    <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+      <div className="text-6xl text-white">{image}</div>
+    </div>
+    <div className="p-6">
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {tech.map((t, index) => (
+          <span key={index} className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+            {t}
+          </span>
+        ))}
+      </div>
+      <div className="flex gap-4">
+        <a href={demoUrl} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-center transition-colors">
+          Live Demo
+        </a>
+        <a href={codeUrl} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white py-2 px-4 rounded-lg text-center transition-colors">
+          Code
+        </a>
+      </div>
+    </div>
+  </div>
+);
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isVisible, setIsVisible] = useState({});
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(prev => ({
+            ...prev,
+            [entry.target.id]: entry.isIntersecting
+          }));
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const skills = [
+    { skill: 'JavaScript', level: 90, icon: '⚡' },
+    { skill: 'React/Next.js', level: 85, icon: '⚛️' },
+    { skill: 'TypeScript', level: 80, icon: '📘' },
+    { skill: 'Node.js', level: 85, icon: '🟢' },
+    { skill: 'Python', level: 75, icon: '🐍' },
+    { skill: 'Database Design', level: 80, icon: '🗄️' },
+  ];
+
+  const projects = [
+    {
+      title: 'E-Commerce Platform',
+      description: 'Full-stack e-commerce solution with payment integration and admin dashboard.',
+      tech: ['Next.js', 'Node.js', 'MongoDB', 'Stripe'],
+      demoUrl: '#',
+      codeUrl: '#',
+      image: '🛒'
+    },
+    {
+      title: 'Task Management App',
+      description: 'Collaborative task management tool with real-time updates and team collaboration.',
+      tech: ['React', 'Socket.io', 'Express', 'PostgreSQL'],
+      demoUrl: '#',
+      codeUrl: '#',
+      image: '📋'
+    },
+    {
+      title: 'Weather Analytics Dashboard',
+      description: 'Data visualization dashboard for weather analytics with interactive charts.',
+      tech: ['React', 'D3.js', 'Python', 'FastAPI'],
+      demoUrl: '#',
+      codeUrl: '#',
+      image: '🌤️'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Navigation */}
+      <Navigation />
+
+      {/* Hero Section */}
+      <section id="hero" className="pt-16 min-h-screen flex items-center justify-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className={`transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              Hi, I'm{' '}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Your Name
+              </span>
+            </h1>
+            <div className="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-8 h-12">
+              I'm a{' '}
+              <TypewriterText 
+                words={['Full Stack Developer', 'Software Engineer', 'Problem Solver', 'Tech Enthusiast']}
+                className="text-blue-600 dark:text-blue-400 font-semibold"
+              />
+            </div>
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+              Passionate about creating innovative web applications and solving complex problems with clean, efficient code.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#projects"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              >
+                View My Work
+              </a>
+              <a
+                href="#contact"
+                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300"
+              >
+                Get In Touch
+              </a>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`transition-all duration-1000 ${isVisible.about ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl font-bold text-center mb-16">About Me</h2>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="w-80 h-80 mx-auto bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-8xl text-white">
+                  👨‍💻
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-6">Passionate Developer</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
+                  I'm a dedicated full-stack developer with over 3 years of experience building web applications. 
+                  I love turning complex problems into simple, beautiful solutions.
+                </p>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
+                  My expertise spans modern JavaScript frameworks, backend technologies, and database design. 
+                  I'm always eager to learn new technologies and stay up-to-date with industry trends.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-lg">
+                    🎓 Computer Science Graduate
+                  </span>
+                  <span className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg">
+                    💼 3+ Years Experience
+                  </span>
+                  <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-lg">
+                    🚀 50+ Projects Completed
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`transition-all duration-1000 ${isVisible.skills ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl font-bold text-center mb-16">Skills & Technologies</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {skills.map((skill, index) => (
+                <SkillCard key={index} {...skill} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`transition-all duration-1000 ${isVisible.projects ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl font-bold text-center mb-16">Featured Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} {...project} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className={`transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl font-bold text-white mb-8">Let's Work Together</h2>
+            <p className="text-xl text-blue-100 mb-12">
+              I'm always interested in new opportunities and exciting projects.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <a
+                href="mailto:your.email@example.com"
+                className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="text-4xl mb-4">📧</div>
+                <h3 className="text-xl font-semibold mb-2">Email</h3>
+                <p>your.email@example.com</p>
+              </a>
+              <a
+                href="https://linkedin.com/in/yourprofile"
+                className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="text-4xl mb-4">💼</div>
+                <h3 className="text-xl font-semibold mb-2">LinkedIn</h3>
+                <p>/in/yourprofile</p>
+              </a>
+              <a
+                href="https://github.com/yourusername"
+                className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="text-4xl mb-4">💻</div>
+                <h3 className="text-xl font-semibold mb-2">GitHub</h3>
+                <p>/yourusername</p>
+              </a>
+            </div>
+            <a
+              href="mailto:your.email@example.com"
+              className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            >
+              Send me a message
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>&copy; 2025 Your Name. All rights reserved.</p>
+          <p className="text-gray-400 mt-2">Built with Next.js and Tailwind CSS</p>
+        </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }
