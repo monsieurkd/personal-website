@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import ThemeToggle from './ThemeToggle';
+import { useState } from "react";
+import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,22 +19,49 @@ export default function Navigation() {
     <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
             onClick={closeMenu}
           >
-            Portfolio
+            David Kieu
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <Link href="/#about" className="hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/#skills" className="hover:text-blue-600 transition-colors">Skills</Link>
-            <Link href="/#projects" className="hover:text-blue-600 transition-colors">Projects</Link>
-            <Link href="/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
-            <Link href="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+            <Link href="/" className="hover:text-blue-600 transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/#about"
+              className="hover:text-blue-600 transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/#skills"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Skills
+            </Link>
+            <Link
+              href="/#projects"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Projects
+            </Link>
+            <Link
+              href="/blog"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Contact
+            </Link>
             <ThemeToggle />
           </div>
 
@@ -69,43 +96,43 @@ export default function Navigation() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >
                 Home
               </Link>
-              <Link 
-                href="/#about" 
+              <Link
+                href="/#about"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >
                 About
               </Link>
-              <Link 
-                href="/#skills" 
+              <Link
+                href="/#skills"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >
                 Skills
               </Link>
-              <Link 
-                href="/#projects" 
+              <Link
+                href="/#projects"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >
                 Projects
               </Link>
-              <Link 
-                href="/blog" 
+              <Link
+                href="/blog"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >
                 Blog
               </Link>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 onClick={closeMenu}
               >

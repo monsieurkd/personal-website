@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -15,21 +15,21 @@ export default function ContactForm() {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setIsSubmitting(false);
     setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
+    setFormData({ name: "", email: "", subject: "", message: "" });
+
     // Reset submitted state after 3 seconds
     setTimeout(() => setSubmitted(false), 3000);
   };
@@ -43,7 +43,8 @@ export default function ContactForm() {
             Message Sent Successfully!
           </h3>
           <p className="text-green-700 dark:text-green-300">
-            Thank you for reaching out. I'll get back to you as soon as possible.
+            Thank you for reaching out. I'll get back to you as soon as
+            possible.
           </p>
         </div>
       </div>
@@ -55,7 +56,10 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Your Name
             </label>
             <input
@@ -70,7 +74,10 @@ export default function ContactForm() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Email Address
             </label>
             <input
@@ -85,9 +92,12 @@ export default function ContactForm() {
             />
           </div>
         </div>
-        
+
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="subject"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Subject
           </label>
           <input
@@ -101,9 +111,12 @@ export default function ContactForm() {
             placeholder="Project Inquiry"
           />
         </div>
-        
+
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Message
           </label>
           <textarea
@@ -117,7 +130,7 @@ export default function ContactForm() {
             placeholder="Tell me about your project or just say hello!"
           />
         </div>
-        
+
         <button
           type="submit"
           disabled={isSubmitting}
@@ -129,7 +142,7 @@ export default function ContactForm() {
               Sending...
             </div>
           ) : (
-            'Send Message'
+            "Send Message"
           )}
         </button>
       </form>

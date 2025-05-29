@@ -12,13 +12,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Your Name - Full Stack Developer",
-  description: "Passionate full-stack developer creating innovative web applications. Explore my portfolio featuring modern web technologies like React, Next.js, and Node.js.",
-  keywords: "full stack developer, web developer, React, Next.js, JavaScript, portfolio",
-  author: "Your Name",
+  title: "David Kieu - Software Developer",
+  description:
+    "David Kieu's personal portfolio showcasing modern web development projects. Experienced in React, Next.js, JavaScript, and responsive design.",
+  keywords:
+    "David Kieu, software developer, web developer, React, Next.js, JavaScript, portfolio, frontend developer",
+  author: "David Kieu",
   openGraph: {
-    title: "Your Name - Full Stack Developer",
-    description: "Passionate full-stack developer creating innovative web applications",
+    title: "David Kieu - Software Developer",
+    description:
+      "David Kieu's personal portfolio showcasing modern web development projects",
     type: "website",
   },
 };

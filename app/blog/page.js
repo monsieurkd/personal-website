@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
 const BlogCard = ({ title, excerpt, date, readTime, category, slug }) => (
   <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
@@ -21,7 +21,7 @@ const BlogCard = ({ title, excerpt, date, readTime, category, slug }) => (
       <p className="text-gray-600 dark:text-gray-400 mb-4">{excerpt}</p>
       <div className="flex items-center justify-between">
         <span className="text-gray-500 text-sm">{date}</span>
-        <Link 
+        <Link
           href={`/blog/${slug}`}
           className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
         >
@@ -33,64 +33,71 @@ const BlogCard = ({ title, excerpt, date, readTime, category, slug }) => (
 );
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const posts = [
     {
-      title: 'Building Scalable React Applications',
-      excerpt: 'Learn best practices for structuring large React applications with proper state management and component architecture.',
-      date: 'May 15, 2025',
+      title: "Building Scalable React Applications",
+      excerpt:
+        "Learn best practices for structuring large React applications with proper state management and component architecture.",
+      date: "May 15, 2025",
       readTime: 8,
-      category: 'React',
-      slug: 'building-scalable-react-applications'
+      category: "React",
+      slug: "building-scalable-react-applications",
     },
     {
-      title: 'Next.js 15: New Features and Performance Improvements',
-      excerpt: 'Explore the latest features in Next.js 15 and how they can improve your web application performance.',
-      date: 'May 10, 2025',
+      title: "Next.js 15: New Features and Performance Improvements",
+      excerpt:
+        "Explore the latest features in Next.js 15 and how they can improve your web application performance.",
+      date: "May 10, 2025",
       readTime: 6,
-      category: 'Next.js',
-      slug: 'nextjs-15-new-features'
+      category: "Next.js",
+      slug: "nextjs-15-new-features",
     },
     {
-      title: 'TypeScript Best Practices for Better Code Quality',
-      excerpt: 'Discover TypeScript patterns and practices that will make your code more maintainable and bug-free.',
-      date: 'May 5, 2025',
+      title: "TypeScript Best Practices for Better Code Quality",
+      excerpt:
+        "Discover TypeScript patterns and practices that will make your code more maintainable and bug-free.",
+      date: "May 5, 2025",
       readTime: 10,
-      category: 'TypeScript',
-      slug: 'typescript-best-practices'
+      category: "TypeScript",
+      slug: "typescript-best-practices",
     },
     {
-      title: 'Database Design Patterns for Modern Applications',
-      excerpt: 'Understanding different database design patterns and when to use them in your applications.',
-      date: 'April 28, 2025',
+      title: "Database Design Patterns for Modern Applications",
+      excerpt:
+        "Understanding different database design patterns and when to use them in your applications.",
+      date: "April 28, 2025",
       readTime: 12,
-      category: 'Database',
-      slug: 'database-design-patterns'
+      category: "Database",
+      slug: "database-design-patterns",
     },
     {
-      title: 'Deploying Full-Stack Applications with Docker',
-      excerpt: 'A comprehensive guide to containerizing and deploying your full-stack applications using Docker.',
-      date: 'April 20, 2025',
+      title: "Deploying Full-Stack Applications with Docker",
+      excerpt:
+        "A comprehensive guide to containerizing and deploying your full-stack applications using Docker.",
+      date: "April 20, 2025",
       readTime: 15,
-      category: 'DevOps',
-      slug: 'deploying-with-docker'
+      category: "DevOps",
+      slug: "deploying-with-docker",
     },
     {
-      title: 'Building RESTful APIs with Node.js and Express',
-      excerpt: 'Learn how to build robust and scalable REST APIs using Node.js, Express, and modern development practices.',
-      date: 'April 15, 2025',
+      title: "Building RESTful APIs with Node.js and Express",
+      excerpt:
+        "Learn how to build robust and scalable REST APIs using Node.js, Express, and modern development practices.",
+      date: "April 15, 2025",
       readTime: 9,
-      category: 'Backend',
-      slug: 'building-restful-apis'
-    }
+      category: "Backend",
+      slug: "building-restful-apis",
+    },
   ];
 
-  const categories = ['All', ...new Set(posts.map(post => post.category))];
+  const categories = ["All", ...new Set(posts.map((post) => post.category))];
 
-  const filteredPosts = selectedCategory === 'All' 
-    ? posts 
-    : posts.filter(post => post.category === selectedCategory);
+  const filteredPosts =
+    selectedCategory === "All"
+      ? posts
+      : posts.filter((post) => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -98,15 +105,37 @@ export default function Blog() {
       <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link
+              href="/"
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            >
               Portfolio
             </Link>
             <div className="hidden md:flex space-x-8">
-              <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-              <Link href="/blog" className="text-blue-600">Blog</Link>
-              <Link href="/#about" className="hover:text-blue-600 transition-colors">About</Link>
-              <Link href="/#projects" className="hover:text-blue-600 transition-colors">Projects</Link>
-              <Link href="/#contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+              <Link href="/" className="hover:text-blue-600 transition-colors">
+                Home
+              </Link>
+              <Link href="/blog" className="text-blue-600">
+                Blog
+              </Link>
+              <Link
+                href="/#about"
+                className="hover:text-blue-600 transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                href="/#projects"
+                className="hover:text-blue-600 transition-colors"
+              >
+                Projects
+              </Link>
+              <Link
+                href="/#contact"
+                className="hover:text-blue-600 transition-colors"
+              >
+                Contact
+              </Link>
             </div>
           </div>
         </div>
@@ -119,7 +148,8 @@ export default function Blog() {
             Blog & Insights
           </h1>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            Sharing my thoughts on web development, programming best practices, and the latest tech trends.
+            Sharing my thoughts on web development, programming best practices,
+            and the latest tech trends.
           </p>
         </div>
       </section>
@@ -134,8 +164,8 @@ export default function Blog() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
               >
                 {category}
@@ -161,7 +191,8 @@ export default function Blog() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
           <p className="text-blue-100 mb-8">
-            Subscribe to get notified about new posts and insights on web development.
+            Subscribe to get notified about new posts and insights on web
+            development.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
@@ -180,7 +211,9 @@ export default function Blog() {
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p>&copy; 2025 Your Name. All rights reserved.</p>
-          <p className="text-gray-400 mt-2">Built with Next.js and Tailwind CSS</p>
+          <p className="text-gray-400 mt-2">
+            Built with Next.js and Tailwind CSS
+          </p>
         </div>
       </footer>
     </div>

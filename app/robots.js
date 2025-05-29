@@ -1,10 +1,10 @@
 export default function robots() {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: '/private/',
+      userAgent: "*",
+      allow: "/",
+      disallow: "/private/",
     },
-    sitemap: 'https://yourwebsite.com/sitemap.xml',
+    sitemap: "https://yourwebsite.com/sitemap.xml",
   };
 }

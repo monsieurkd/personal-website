@@ -1,31 +1,34 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import Navigation from './components/Navigation';
-import ScrollToTop from './components/ScrollToTop';
+import Navigation from "./components/Navigation";
+import ScrollToTop from "./components/ScrollToTop";
 
 const TypewriterText = ({ words, className }) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const word = words[currentWordIndex];
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setCurrentText(word.substring(0, currentText.length + 1));
-        if (currentText === word) {
-          setTimeout(() => setIsDeleting(true), 2000);
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setCurrentText(word.substring(0, currentText.length + 1));
+          if (currentText === word) {
+            setTimeout(() => setIsDeleting(true), 2000);
+          }
+        } else {
+          setCurrentText(word.substring(0, currentText.length - 1));
+          if (currentText === "") {
+            setIsDeleting(false);
+            setCurrentWordIndex((prev) => (prev + 1) % words.length);
+          }
         }
-      } else {
-        setCurrentText(word.substring(0, currentText.length - 1));
-        if (currentText === '') {
-          setIsDeleting(false);
-          setCurrentWordIndex((prev) => (prev + 1) % words.length);
-        }
-      }
-    }, isDeleting ? 50 : 150);
+      },
+      isDeleting ? 50 : 150
+    );
 
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentWordIndex, words]);
@@ -38,7 +41,7 @@ const SkillCard = ({ skill, level, icon }) => (
     <div className="text-3xl mb-4">{icon}</div>
     <h3 className="text-xl font-semibold mb-2">{skill}</h3>
     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-      <div 
+      <div
         className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000"
         style={{ width: `${level}%` }}
       ></div>
@@ -57,16 +60,25 @@ const ProjectCard = ({ title, description, tech, demoUrl, codeUrl, image }) => (
       <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
       <div className="flex flex-wrap gap-2 mb-4">
         {tech.map((t, index) => (
-          <span key={index} className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+          <span
+            key={index}
+            className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+          >
             {t}
           </span>
         ))}
       </div>
       <div className="flex gap-4">
-        <a href={demoUrl} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-center transition-colors">
+        <a
+          href={demoUrl}
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-center transition-colors"
+        >
           Live Demo
         </a>
-        <a href={codeUrl} className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white py-2 px-4 rounded-lg text-center transition-colors">
+        <a
+          href={codeUrl}
+          className="flex-1 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white py-2 px-4 rounded-lg text-center transition-colors"
+        >
           Code
         </a>
       </div>
@@ -81,16 +93,16 @@ export default function Home() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsVisible(prev => ({
+          setIsVisible((prev) => ({
             ...prev,
-            [entry.target.id]: entry.isIntersecting
+            [entry.target.id]: entry.isIntersecting,
           }));
         });
       },
       { threshold: 0.1 }
     );
 
-    document.querySelectorAll('section[id]').forEach((section) => {
+    document.querySelectorAll("section[id]").forEach((section) => {
       observer.observe(section);
     });
 
@@ -98,39 +110,42 @@ export default function Home() {
   }, []);
 
   const skills = [
-    { skill: 'JavaScript', level: 90, icon: '⚡' },
-    { skill: 'React/Next.js', level: 85, icon: '⚛️' },
-    { skill: 'TypeScript', level: 80, icon: '📘' },
-    { skill: 'Node.js', level: 85, icon: '🟢' },
-    { skill: 'Python', level: 75, icon: '🐍' },
-    { skill: 'Database Design', level: 80, icon: '🗄️' },
+    { skill: "JavaScript", level: 85, icon: "⚡" },
+    { skill: "React/Next.js", level: 80, icon: "⚛️" },
+    { skill: "HTML/CSS", level: 90, icon: "🎨" },
+    { skill: "Node.js", level: 75, icon: "🟢" },
+    { skill: "Git/GitHub", level: 85, icon: "📚" },
+    { skill: "Responsive Design", level: 88, icon: "📱" },
   ];
 
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'Full-stack e-commerce solution with payment integration and admin dashboard.',
-      tech: ['Next.js', 'Node.js', 'MongoDB', 'Stripe'],
-      demoUrl: '#',
-      codeUrl: '#',
-      image: '🛒'
+      title: "Personal Portfolio Website",
+      description:
+        "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring dark mode and smooth animations.",
+      tech: ["Next.js", "React", "Tailwind CSS", "JavaScript"],
+      demoUrl: "#",
+      codeUrl: "#",
+      image: "🌐",
     },
     {
-      title: 'Task Management App',
-      description: 'Collaborative task management tool with real-time updates and team collaboration.',
-      tech: ['React', 'Socket.io', 'Express', 'PostgreSQL'],
-      demoUrl: '#',
-      codeUrl: '#',
-      image: '📋'
+      title: "Task Tracker Application",
+      description:
+        "A clean and intuitive task management app with local storage and drag-and-drop functionality.",
+      tech: ["React", "JavaScript", "CSS3", "Local Storage"],
+      demoUrl: "#",
+      codeUrl: "#",
+      image: "✅",
     },
     {
-      title: 'Weather Analytics Dashboard',
-      description: 'Data visualization dashboard for weather analytics with interactive charts.',
-      tech: ['React', 'D3.js', 'Python', 'FastAPI'],
-      demoUrl: '#',
-      codeUrl: '#',
-      image: '🌤️'
-    }
+      title: "Restaurant Landing Page",
+      description:
+        "A beautiful, responsive landing page for a restaurant with smooth scrolling and modern design.",
+      tech: ["HTML", "CSS", "JavaScript", "SCSS"],
+      demoUrl: "#",
+      codeUrl: "#",
+      image: "🍽️",
+    },
   ];
 
   return (
@@ -139,24 +154,39 @@ export default function Home() {
       <Navigation />
 
       {/* Hero Section */}
-      <section id="hero" className="pt-16 min-h-screen flex items-center justify-center">
+      <section
+        id="hero"
+        className="pt-16 min-h-screen flex items-center justify-center"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className={`transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible.hero
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Hi, I'm{' '}
+              Hi, I'm{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Your Name
+                David Kieu
               </span>
             </h1>
             <div className="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-8 h-12">
-              I'm a{' '}
-              <TypewriterText 
-                words={['Full Stack Developer', 'Software Engineer', 'Problem Solver', 'Tech Enthusiast']}
+              I'm a{" "}
+              <TypewriterText
+                words={[
+                  "Software Developer",
+                  "Frontend Specialist",
+                  "Problem Solver",
+                  "Technology Enthusiast",
+                ]}
                 className="text-blue-600 dark:text-blue-400 font-semibold"
               />
             </div>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Passionate about creating innovative web applications and solving complex problems with clean, efficient code.
+              Dedicated software developer passionate about creating elegant solutions 
+              and building user-friendly applications with modern technologies.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -164,6 +194,14 @@ export default function Home() {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >
                 View My Work
+              </a>
+              <a
+                href="/david-kieu-cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                📄 Download CV
               </a>
               <a
                 href="#contact"
@@ -179,7 +217,13 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-1000 ${isVisible.about ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible.about
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
             <h2 className="text-4xl font-bold text-center mb-16">About Me</h2>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -188,24 +232,29 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 className="text-2xl font-semibold mb-6">Passionate Developer</h3>
+                <h3 className="text-2xl font-semibold mb-6">
+                  Software Developer & Problem Solver
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  I'm a dedicated full-stack developer with over 3 years of experience building web applications. 
-                  I love turning complex problems into simple, beautiful solutions.
+                  Hello! I'm David Kieu, a passionate software developer with a strong 
+                  foundation in modern web technologies. I enjoy creating efficient, 
+                  scalable solutions and bringing creative ideas to life through code.
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  My expertise spans modern JavaScript frameworks, backend technologies, and database design. 
-                  I'm always eager to learn new technologies and stay up-to-date with industry trends.
+                  My journey in software development has led me to work with various 
+                  technologies including React, Next.js, and Node.js. I'm constantly 
+                  learning and adapting to new technologies to deliver the best possible 
+                  user experiences.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-lg">
-                    🎓 Computer Science Graduate
+                    🎓 Software Development
                   </span>
                   <span className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg">
-                    💼 3+ Years Experience
+                    💻 Frontend Specialist
                   </span>
                   <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-lg">
-                    🚀 50+ Projects Completed
+                    🚀 Modern Web Technologies
                   </span>
                 </div>
               </div>
@@ -217,8 +266,16 @@ export default function Home() {
       {/* Skills Section */}
       <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-1000 ${isVisible.skills ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 className="text-4xl font-bold text-center mb-16">Skills & Technologies</h2>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible.skills
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <h2 className="text-4xl font-bold text-center mb-16">
+              Skills & Technologies
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {skills.map((skill, index) => (
                 <SkillCard key={index} {...skill} />
@@ -231,8 +288,16 @@ export default function Home() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-1000 ${isVisible.projects ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 className="text-4xl font-bold text-center mb-16">Featured Projects</h2>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible.projects
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <h2 className="text-4xl font-bold text-center mb-16">
+              Featured Projects
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, index) => (
                 <ProjectCard key={index} {...project} />
@@ -243,10 +308,21 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section
+        id="contact"
+        className="py-20 bg-gradient-to-r from-blue-600 to-purple-600"
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className={`transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h2 className="text-4xl font-bold text-white mb-8">Let's Work Together</h2>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible.contact
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <h2 className="text-4xl font-bold text-white mb-8">
+              Let's Work Together
+            </h2>
             <p className="text-xl text-blue-100 mb-12">
               I'm always interested in new opportunities and exciting projects.
             </p>
@@ -290,7 +366,9 @@ export default function Home() {
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p>&copy; 2025 Your Name. All rights reserved.</p>
-          <p className="text-gray-400 mt-2">Built with Next.js and Tailwind CSS</p>
+          <p className="text-gray-400 mt-2">
+            Built with Next.js and Tailwind CSS
+          </p>
         </div>
       </footer>
 
