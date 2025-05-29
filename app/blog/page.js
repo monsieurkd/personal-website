@@ -109,7 +109,7 @@ export default function Blog() {
               href="/"
               className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
             >
-              Portfolio
+              David Kieu
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/" className="hover:text-blue-600 transition-colors">

@@ -71,10 +71,10 @@ export default function Contact() {
                 Send me an email
               </p>
               <a
-                href="mailto:david.kieu@example.com"
+                href="mailto:david.kieu@protonmail.com"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
               >
-                david.kieu@example.com
+                david.kieu@protonmail.com
               </a>
             </div>
 
@@ -85,10 +85,12 @@ export default function Contact() {
                 Connect professionally
               </p>
               <a
-                href="https://linkedin.com/in/david-kieu"
+                href="https://linkedin.com/in/davidkieu-dev"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                /in/david-kieu
+                /in/davidkieu-dev
               </a>
             </div>
 
@@ -99,10 +101,12 @@ export default function Contact() {
                 Check out my code
               </p>
               <a
-                href="https://github.com/davidkieu"
+                href="https://github.com/davidkieu-dev"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                /davidkieu
+                /davidkieu-dev
               </a>
             </div>
           </div>

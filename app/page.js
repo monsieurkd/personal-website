@@ -110,41 +110,41 @@ export default function Home() {
   }, []);
 
   const skills = [
-    { skill: "JavaScript", level: 85, icon: "⚡" },
-    { skill: "React/Next.js", level: 80, icon: "⚛️" },
-    { skill: "HTML/CSS", level: 90, icon: "🎨" },
-    { skill: "Node.js", level: 75, icon: "🟢" },
-    { skill: "Git/GitHub", level: 85, icon: "📚" },
-    { skill: "Responsive Design", level: 88, icon: "📱" },
+    { skill: "JavaScript/TypeScript", level: 92, icon: "⚡" },
+    { skill: "React/Next.js", level: 90, icon: "⚛️" },
+    { skill: "Node.js/Express", level: 85, icon: "🟢" },
+    { skill: "Database Design", level: 80, icon: "🗄️" },
+    { skill: "AWS/Cloud Services", level: 75, icon: "☁️" },
+    { skill: "System Architecture", level: 82, icon: "🏗️" },
   ];
 
   const projects = [
     {
-      title: "Personal Portfolio Website",
+      title: "E-Learning Platform",
       description:
-        "A modern, responsive portfolio website built with Next.js and Tailwind CSS featuring dark mode and smooth animations.",
-      tech: ["Next.js", "React", "Tailwind CSS", "JavaScript"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "🌐",
+        "A comprehensive online learning management system with course creation, student progress tracking, and interactive assignments.",
+      tech: ["React", "Node.js", "MongoDB", "Express", "JWT"],
+      demoUrl: "https://elearning-demo.davidkieu.dev",
+      codeUrl: "https://github.com/davidkieu/elearning-platform",
+      image: "📚",
     },
     {
-      title: "Task Tracker Application",
+      title: "Real Estate Marketplace",
       description:
-        "A clean and intuitive task management app with local storage and drag-and-drop functionality.",
-      tech: ["React", "JavaScript", "CSS3", "Local Storage"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "✅",
+        "A full-stack property listing platform with advanced search filters, user authentication, and property management dashboard.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
+      demoUrl: "https://realestate.davidkieu.dev",
+      codeUrl: "https://github.com/davidkieu/real-estate-app",
+      image: "🏠",
     },
     {
-      title: "Restaurant Landing Page",
+      title: "Expense Tracker App",
       description:
-        "A beautiful, responsive landing page for a restaurant with smooth scrolling and modern design.",
-      tech: ["HTML", "CSS", "JavaScript", "SCSS"],
-      demoUrl: "#",
-      codeUrl: "#",
-      image: "🍽️",
+        "A personal finance management application with budget planning, expense categorization, and detailed analytics dashboard.",
+      tech: ["React Native", "Firebase", "Chart.js", "Redux"],
+      demoUrl: "https://expenses.davidkieu.dev",
+      codeUrl: "https://github.com/davidkieu/expense-tracker",
+      image: "💰",
     },
   ];
 
@@ -176,17 +176,18 @@ export default function Home() {
               I'm a{" "}
               <TypewriterText
                 words={[
-                  "Software Developer",
-                  "Frontend Specialist",
-                  "Problem Solver",
-                  "Technology Enthusiast",
+                  "Senior Software Developer",
+                  "Full Stack Engineer",
+                  "Team Lead",
+                  "System Architect",
                 ]}
                 className="text-blue-600 dark:text-blue-400 font-semibold"
               />
             </div>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Dedicated software developer passionate about creating elegant solutions 
-              and building user-friendly applications with modern technologies.
+              Senior Software Developer with 5+ years of experience building scalable web applications. 
+              Specialized in React, Node.js, and cloud architecture. Passionate about leading teams and 
+              delivering high-quality software solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -233,28 +234,29 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-2xl font-semibold mb-6">
-                  Software Developer & Problem Solver
+                  Senior Software Developer & Tech Lead
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  Hello! I'm David Kieu, a passionate software developer with a strong 
-                  foundation in modern web technologies. I enjoy creating efficient, 
-                  scalable solutions and bringing creative ideas to life through code.
+                  Hello! I'm David Kieu, a senior software developer with over 5 years of 
+                  experience building scalable web applications and leading development teams. 
+                  I specialize in full-stack development with expertise in modern JavaScript 
+                  frameworks and cloud technologies.
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  My journey in software development has led me to work with various 
-                  technologies including React, Next.js, and Node.js. I'm constantly 
-                  learning and adapting to new technologies to deliver the best possible 
-                  user experiences.
+                  Throughout my career, I've successfully delivered 20+ production applications, 
+                  led teams of 3-5 developers, and implemented CI/CD pipelines that improved 
+                  deployment efficiency by 60%. I'm passionate about clean code, system 
+                  architecture, and mentoring junior developers.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-lg">
-                    🎓 Software Development
+                    🎓 Computer Science, RMIT University
                   </span>
                   <span className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg">
-                    💻 Frontend Specialist
+                    💼 5+ Years Experience
                   </span>
                   <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-lg">
-                    🚀 Modern Web Technologies
+                    🚀 Team Lead & Mentor
                   </span>
                 </div>
               </div>
