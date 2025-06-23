@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import Navigation from "../../components/Navigation";
 
 export default function BlogPost() {
   const params = useParams();
@@ -13,7 +14,7 @@ export default function BlogPost() {
     date: "May 15, 2025",
     readTime: 8,
     category: "React",
-    author: "Your Name",
+    author: "David Kieu",
     content: `
       <h2>Introduction</h2>
       <p>Building scalable React applications is one of the most important skills for modern web developers. As applications grow in complexity, maintaining clean, efficient, and scalable code becomes crucial for long-term success.</p>
@@ -59,44 +60,7 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link
-              href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            >
-              David Kieu
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/" className="hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/blog" className="text-blue-600">
-                Blog
-              </Link>
-              <Link
-                href="/#about"
-                className="hover:text-blue-600 transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="/#projects"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Projects
-              </Link>
-              <Link
-                href="/#contact"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       <article className="pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,20 +127,19 @@ export default function BlogPost() {
                   About the Author
                 </h4>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Your Name is a passionate full-stack developer with over 3
-                  years of experience in building modern web applications. He
-                  specializes in React, Next.js, and Node.js, and loves sharing
-                  knowledge about web development best practices.
+                  David Kieu is a passionate Computer Science student at the
+                  University of Adelaide with experience in full-stack
+                  development, computer vision, and game development.
                 </p>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://linkedin.com/in/kieu-duc-tech"
                     className="text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     LinkedIn
                   </a>
                   <a
-                    href="#"
+                    href="https://github.com/monsieurkd"
                     className="text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     GitHub
@@ -197,7 +160,7 @@ export default function BlogPost() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2025 Your Name. All rights reserved.</p>
+          <p>&copy; 2025 David Kieu. All rights reserved.</p>
           <p className="text-gray-400 mt-2">
             Built with Next.js and Tailwind CSS
           </p>

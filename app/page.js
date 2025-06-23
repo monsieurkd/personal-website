@@ -110,41 +110,41 @@ export default function Home() {
   }, []);
 
   const skills = [
-    { skill: "JavaScript/TypeScript", level: 92, icon: "⚡" },
-    { skill: "React/Next.js", level: 90, icon: "⚛️" },
-    { skill: "Node.js/Express", level: 85, icon: "🟢" },
-    { skill: "Database Design", level: 80, icon: "🗄️" },
-    { skill: "AWS/Cloud Services", level: 75, icon: "☁️" },
-    { skill: "System Architecture", level: 82, icon: "🏗️" },
+    { skill: "Python", level: 95, icon: "🐍" },
+    { skill: "TensorFlow", level: 85, icon: "🧠" },
+    { skill: "PyTorch", level: 80, icon: "🔥" },
+    { skill: "Scikit-learn", level: 90, icon: "🤖" },
+    { skill: "NLP", level: 82, icon: "🗣️" },
+    { skill: "Computer Vision", level: 90, icon: "👁️" },
   ];
 
   const projects = [
     {
-      title: "E-Learning Platform",
+      title: "Game Development: Ping Pong and Chess",
       description:
-        "A comprehensive online learning management system with course creation, student progress tracking, and interactive assignments.",
-      tech: ["React", "Node.js", "MongoDB", "Express", "JWT"],
-      demoUrl: "https://elearning-demo.davidkieu.dev",
-      codeUrl: "https://github.com/davidkieu/elearning-platform",
-      image: "📚",
+        "Developed 2D games with a custom physics engine and AI-driven decision-making for the Chess game.",
+      tech: ["Python"],
+      demoUrl: "#",
+      codeUrl: "https://github.com/monsieurkd",
+      image: "🎮",
     },
     {
-      title: "Real Estate Marketplace",
+      title: "AVA Club Website",
       description:
-        "A full-stack property listing platform with advanced search filters, user authentication, and property management dashboard.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
-      demoUrl: "https://realestate.davidkieu.dev",
-      codeUrl: "https://github.com/davidkieu/real-estate-app",
-      image: "🏠",
+        "A modern, responsive website for the AVA Club to showcase activities and events, featuring an events calendar and RSVP forms.",
+      tech: ["React", "GitHub"],
+      demoUrl: "#",
+      codeUrl: "https://github.com/monsieurkd",
+      image: "🎉",
     },
     {
-      title: "Expense Tracker App",
+      title: "AirGesture",
       description:
-        "A personal finance management application with budget planning, expense categorization, and detailed analytics dashboard.",
-      tech: ["React Native", "Firebase", "Chart.js", "Redux"],
-      demoUrl: "https://expenses.davidkieu.dev",
-      codeUrl: "https://github.com/davidkieu/expense-tracker",
-      image: "💰",
+        "A computer vision project that detects and interprets hand gestures in real-time to translate them into actionable commands.",
+      tech: ["Python", "OpenCV"],
+      demoUrl: "#",
+      codeUrl: "https://github.com/monsieurkd",
+      image: "🖐️",
     },
   ];
 
@@ -176,19 +176,19 @@ export default function Home() {
               I'm a{" "}
               <TypewriterText
                 words={[
-                  "Senior Software Developer",
-                  "Full Stack Engineer",
-                  "Team Lead",
-                  "System Architect",
+                  "Software Engineer",
+                  "Full Stack Developer",
+                  "Game Developer",
+                  "Computer Vision Engineer",
                 ]}
                 className="text-blue-600 dark:text-blue-400 font-semibold"
               />
             </div>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Senior Software Developer with 5+ years of experience building
-              scalable web applications. Specialized in React, Node.js, and
-              cloud architecture. Passionate about leading teams and delivering
-              high-quality software solutions.
+              A passionate and driven Computer Science student from the
+              University of Adelaide with experience in full-stack development,
+              computer vision, and game development. Proven ability to design,
+              develop, and deploy software solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -235,31 +235,30 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-2xl font-semibold mb-6">
-                  Senior Software Developer & Tech Lead
+                  Software Engineer & Computer Science Student
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  Hello! I'm David Kieu, a senior software developer with over 5
-                  years of experience building scalable web applications and
-                  leading development teams. I specialize in full-stack
-                  development with expertise in modern JavaScript frameworks and
-                  cloud technologies.
+                  Hello! I'm David Kieu, a Computer Science student at the
+                  University of Adelaide. I have practical experience as a
+                  Software Engineer at Ecosmartvietnam, where I designed and
+                  deployed a production-grade website, and as an Intern at
+                  Kaopiz Inc., where I engineered computer vision models.
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg leading-relaxed">
-                  Throughout my career, I've successfully delivered 20+
-                  production applications, led teams of 3-5 developers, and
-                  implemented CI/CD pipelines that improved deployment
-                  efficiency by 60%. I'm passionate about clean code, system
+                  I'm also an active community member, serving as Treasurer for
+                  the Vietnamese Students Association and volunteering for
+                  university events. I'm passionate about clean code, system
                   architecture, and mentoring junior developers.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-lg">
-                    🎓 Computer Science, RMIT University
+                    🎓 Computer Science, University of Adelaide
                   </span>
                   <span className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg">
-                    💼 5+ Years Experience
+                    💼 1+ Years Experience
                   </span>
                   <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-lg">
-                    🚀 Team Lead & Mentor
+                    🚀 Community Volunteer
                   </span>
                 </div>
               </div>
@@ -333,32 +332,32 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:david.kieu25@gmail.com"
                 className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="text-4xl mb-4">📧</div>
                 <h3 className="text-xl font-semibold mb-2">Email</h3>
-                <p>your.email@example.com</p>
+                <p>david.kieu25@gmail.com</p>
               </a>
               <a
-                href="https://linkedin.com/in/yourprofile"
+                href="https://linkedin.com/in/kieu-duc-tech"
                 className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="text-4xl mb-4">💼</div>
                 <h3 className="text-xl font-semibold mb-2">LinkedIn</h3>
-                <p>/in/yourprofile</p>
+                <p>/in/kieu-duc-tech</p>
               </a>
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/monsieurkd"
                 className="bg-white/10 backdrop-blur-md text-white p-6 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="text-4xl mb-4">💻</div>
                 <h3 className="text-xl font-semibold mb-2">GitHub</h3>
-                <p>/yourusername</p>
+                <p>/monsieurkd</p>
               </a>
             </div>
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:david.kieu25@gmail.com"
               className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
             >
               Send me a message
@@ -370,7 +369,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2025 Your Name. All rights reserved.</p>
+          <p>&copy; 2025 David Kieu. All rights reserved.</p>
           <p className="text-gray-400 mt-2">
             Built with Next.js and Tailwind CSS
           </p>

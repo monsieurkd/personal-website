@@ -1,48 +1,12 @@
 import Link from "next/link";
 import ContactForm from "../components/ContactForm";
+import Navigation from "../components/Navigation";
 
 export default function Contact() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link
-              href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            >
-              David Kieu
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/" className="hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link
-                href="/blog"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Blog
-              </Link>
-              <Link
-                href="/#about"
-                className="hover:text-blue-600 transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="/#projects"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Projects
-              </Link>
-              <Link href="/contact" className="text-blue-600">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Header Section */}
       <section className="pt-24 pb-12">
@@ -72,10 +36,10 @@ export default function Contact() {
                 Send me an email
               </p>
               <a
-                href="mailto:david.kieu@protonmail.com"
+                href="mailto:david.kieu25@gmail.com"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
               >
-                david.kieu@protonmail.com
+                david.kieu25@gmail.com
               </a>
             </div>
 
@@ -86,12 +50,12 @@ export default function Contact() {
                 Connect professionally
               </p>
               <a
-                href="https://linkedin.com/in/davidkieu-dev"
+                href="https://linkedin.com/in/kieu-duc-tech"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                /in/davidkieu-dev
+                /in/kieu-duc-tech
               </a>
             </div>
 
@@ -102,12 +66,12 @@ export default function Contact() {
                 Check out my code
               </p>
               <a
-                href="https://github.com/davidkieu-dev"
+                href="https://github.com/monsieurkd"
                 className="text-blue-600 hover:text-blue-800 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                /davidkieu-dev
+                /monsieurkd
               </a>
             </div>
           </div>
@@ -174,7 +138,7 @@ export default function Contact() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2025 Your Name. All rights reserved.</p>
+          <p>&copy; 2025 David Kieu. All rights reserved.</p>
           <p className="text-gray-400 mt-2">
             Built with Next.js and Tailwind CSS
           </p>
