@@ -2,134 +2,109 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 
-const BlogCard = ({ title, excerpt, date, readTime, category, slug }) => (
-  <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-    <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-      <div className="text-6xl text-white">📝</div>
-    </div>
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
-          {category}
-        </span>
-        <span className="text-gray-500 text-sm">{readTime} min read</span>
-      </div>
-      <h2 className="text-xl font-semibold mb-3 hover:text-blue-600 transition-colors">
-        <Link href={`/blog/${slug}`}>{title}</Link>
-      </h2>
-      <p className="text-gray-600 dark:text-gray-400 mb-4">{excerpt}</p>
-      <div className="flex items-center justify-between">
-        <span className="text-gray-500 text-sm">{date}</span>
-        <Link
-          href={`/blog/${slug}`}
-          className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
-        >
-          Read More →
-        </Link>
-      </div>
-    </div>
-  </article>
-);
+const POSTS = [
+  {
+    title: "Building Scalable React Applications",
+    excerpt:
+      "Best practices for structuring large React apps — state management, component architecture, and where the real complexity hides.",
+    date: "May 15, 2025",
+    readTime: 8,
+    category: "React",
+    slug: "building-scalable-react-applications",
+  },
+  {
+    title: "Next.js 15: New Features & Performance",
+    excerpt:
+      "A look at the latest in Next.js 15 and how the new capabilities can sharpen your app's performance.",
+    date: "May 10, 2025",
+    readTime: 6,
+    category: "Next.js",
+    slug: "nextjs-15-new-features",
+  },
+  {
+    title: "TypeScript Best Practices for Better Code",
+    excerpt:
+      "TypeScript patterns and habits that make codebases more maintainable and noticeably less buggy.",
+    date: "May 5, 2025",
+    readTime: 10,
+    category: "TypeScript",
+    slug: "typescript-best-practices",
+  },
+  {
+    title: "Database Design Patterns for Modern Apps",
+    excerpt:
+      "Understanding common database design patterns and when each one actually earns its place.",
+    date: "April 28, 2025",
+    readTime: 12,
+    category: "Database",
+    slug: "database-design-patterns",
+  },
+  {
+    title: "Deploying Full-Stack Apps with Docker",
+    excerpt:
+      "A practical guide to containerising and deploying full-stack applications without the usual headaches.",
+    date: "April 20, 2025",
+    readTime: 15,
+    category: "DevOps",
+    slug: "deploying-with-docker",
+  },
+  {
+    title: "Building RESTful APIs with Node & Express",
+    excerpt:
+      "How to build robust, scalable REST APIs with Node.js, Express, and modern development practices.",
+    date: "April 15, 2025",
+    readTime: 9,
+    category: "Backend",
+    slug: "building-restful-apis",
+  },
+];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const posts = [
-    {
-      title: "Building Scalable React Applications",
-      excerpt:
-        "Learn best practices for structuring large React applications with proper state management and component architecture.",
-      date: "May 15, 2025",
-      readTime: 8,
-      category: "React",
-      slug: "building-scalable-react-applications",
-    },
-    {
-      title: "Next.js 15: New Features and Performance Improvements",
-      excerpt:
-        "Explore the latest features in Next.js 15 and how they can improve your web application performance.",
-      date: "May 10, 2025",
-      readTime: 6,
-      category: "Next.js",
-      slug: "nextjs-15-new-features",
-    },
-    {
-      title: "TypeScript Best Practices for Better Code Quality",
-      excerpt:
-        "Discover TypeScript patterns and practices that will make your code more maintainable and bug-free.",
-      date: "May 5, 2025",
-      readTime: 10,
-      category: "TypeScript",
-      slug: "typescript-best-practices",
-    },
-    {
-      title: "Database Design Patterns for Modern Applications",
-      excerpt:
-        "Understanding different database design patterns and when to use them in your applications.",
-      date: "April 28, 2025",
-      readTime: 12,
-      category: "Database",
-      slug: "database-design-patterns",
-    },
-    {
-      title: "Deploying Full-Stack Applications with Docker",
-      excerpt:
-        "A comprehensive guide to containerizing and deploying your full-stack applications using Docker.",
-      date: "April 20, 2025",
-      readTime: 15,
-      category: "DevOps",
-      slug: "deploying-with-docker",
-    },
-    {
-      title: "Building RESTful APIs with Node.js and Express",
-      excerpt:
-        "Learn how to build robust and scalable REST APIs using Node.js, Express, and modern development practices.",
-      date: "April 15, 2025",
-      readTime: 9,
-      category: "Backend",
-      slug: "building-restful-apis",
-    },
-  ];
-
-  const categories = ["All", ...new Set(posts.map((post) => post.category))];
-
+  const categories = ["All", ...new Set(POSTS.map((post) => post.category))];
   const filteredPosts =
     selectedCategory === "All"
-      ? posts
-      : posts.filter((post) => post.category === selectedCategory);
+      ? POSTS
+      : POSTS.filter((post) => post.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Navigation */}
+    <div className="min-h-screen bg-bg text-ink">
       <Navigation />
 
-      {/* Header Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Blog & Insights
-          </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            Sharing my thoughts on web development, programming best practices,
-            and the latest tech trends.
-          </p>
+      {/* Header */}
+      <section className="border-b border-hairline pt-32 pb-16 md:pt-40">
+        <div className="mx-auto max-w-content px-6">
+          <Reveal>
+            <p className="eyebrow mb-3">Writing</p>
+            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-ink-strong sm:text-5xl md:text-6xl">
+              Notes on building software.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Thoughts on web development, engineering practices, and the tools I
+              use day to day.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-3 justify-center">
+      {/* Category filter */}
+      <section className="border-b border-hairline py-6">
+        <div className="mx-auto max-w-content px-6">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+                className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
                   selectedCategory === category
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                    ? "border-accent bg-accent text-accent-contrast"
+                    : "border-hairline text-muted hover:border-hairline-strong hover:text-ink-strong"
                 }`}
               >
                 {category}
@@ -139,47 +114,79 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Posts */}
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-content px-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post, index) => (
-              <BlogCard key={index} {...post} />
+              <Reveal key={post.slug} delay={(index % 3) * 0.05}>
+                <article className="group flex h-full flex-col rounded-2xl border border-hairline bg-surface p-6 transition-colors hover:border-accent">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs uppercase tracking-widest text-accent">
+                      {post.category}
+                    </span>
+                    <span className="font-mono text-xs text-muted">
+                      {post.readTime} min
+                    </span>
+                  </div>
+                  <h2 className="mt-4 text-xl font-medium leading-snug text-ink-strong">
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h2>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+                    {post.excerpt}
+                  </p>
+                  <div className="mt-6 flex items-center justify-between border-t border-hairline pt-4">
+                    <span className="font-mono text-xs text-muted">
+                      {post.date}
+                    </span>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1 text-sm font-medium text-ink-strong"
+                    >
+                      Read
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </Link>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
-          <p className="text-blue-100 mb-8">
-            Subscribe to get notified about new posts and insights on web
-            development.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Subscribe
-            </button>
-          </div>
+      {/* Newsletter */}
+      <section className="border-t border-hairline py-16 md:py-20">
+        <div className="mx-auto max-w-content px-6">
+          <Reveal>
+            <div className="rounded-3xl border border-hairline bg-surface px-6 py-12 text-center sm:px-12">
+              <p className="eyebrow mb-3">Newsletter</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-ink-strong sm:text-3xl">
+                Stay in the loop.
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-muted">
+                Get notified when I publish something new. No spam, unsubscribe
+                anytime.
+              </p>
+              <form className="mx-auto mt-7 flex max-w-md flex-col gap-3 sm:flex-row">
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  className="flex-1 rounded-lg border border-hairline-strong bg-bg px-4 py-3 text-[15px] text-ink-strong placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-accent px-5 py-3 text-sm font-medium text-accent-contrast transition-colors hover:bg-accent-hover"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2025 Your Name. All rights reserved.</p>
-          <p className="text-gray-400 mt-2">
-            Built with Next.js and Tailwind CSS
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

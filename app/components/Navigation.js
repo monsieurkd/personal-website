@@ -2,146 +2,124 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#projects", label: "Work" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.2,
+  });
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
+  const isActive = (href) => {
+    if (href.startsWith("/#")) return false;
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-hairline bg-white/70 backdrop-blur-xl dark:bg-[#0a0a0b]/70">
+      <div className="mx-auto max-w-content px-6">
+        <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            onClick={closeMenu}
+            onClick={() => setIsMenuOpen(false)}
+            className="group flex items-center gap-2.5"
           >
-            David Kieu
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-ink-strong font-mono text-xs font-bold text-bg">
+              DK
+            </span>
+            <span className="text-[15px] font-semibold tracking-tight text-ink-strong">
+              David Kieu
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="hover:text-blue-600 transition-colors">
-              Home
-            </Link>
-            <Link
-              href="/#about"
-              className="hover:text-blue-600 transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/#skills"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Skills
-            </Link>
-            <Link
-              href="/#projects"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Projects
-            </Link>
-            <Link
-              href="/blog"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Contact
-            </Link>
+          {/* Desktop nav */}
+          <div className="hidden items-center gap-1 md:flex">
+            {LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative rounded-md px-3 py-2 text-sm transition-colors ${
+                  isActive(link.href)
+                    ? "text-ink-strong"
+                    : "text-muted hover:text-ink-strong"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="mx-2 h-5 w-px bg-hairline" />
             <ThemeToggle />
           </div>
 
-          {/* Mobile menu button and theme toggle */}
-          <div className="md:hidden flex items-center space-x-2">
+          {/* Mobile controls */}
+          <div className="flex items-center gap-1 md:hidden">
             <ThemeToggle />
             <button
-              onClick={toggleMenu}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              onClick={() => setIsMenuOpen((v) => !v)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink-strong transition-colors hover:bg-surface-hover"
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isMenuOpen ? (
-                  <path d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-              <Link
-                href="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                Home
-              </Link>
-              <Link
-                href="/#about"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                About
-              </Link>
-              <Link
-                href="/#skills"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                Skills
-              </Link>
-              <Link
-                href="/#projects"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                Projects
-              </Link>
-              <Link
-                href="/blog"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                onClick={closeMenu}
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Scroll progress bar */}
+      <motion.div
+        style={{ scaleX }}
+        className="absolute bottom-0 left-0 h-px w-full origin-left bg-accent"
+      />
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden border-b border-hairline bg-bg md:hidden"
+        >
+          <div className="mx-auto max-w-content px-6 py-3">
+            {LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block rounded-md px-3 py-2.5 text-[15px] transition-colors hover:bg-surface-hover ${
+                  isActive(link.href)
+                    ? "text-ink-strong"
+                    : "text-muted"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+      )}
     </nav>
   );
 }

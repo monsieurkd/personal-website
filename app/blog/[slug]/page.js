@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
 
 export default function BlogPost() {
   const params = useParams();
   const slug = params?.slug;
 
-  // This would normally come from a database or CMS
+  // Would normally come from a database or CMS.
   const post = {
     title: "Building Scalable React Applications",
     date: "May 15, 2025",
@@ -18,7 +20,7 @@ export default function BlogPost() {
     content: `
       <h2>Introduction</h2>
       <p>Building scalable React applications is one of the most important skills for modern web developers. As applications grow in complexity, maintaining clean, efficient, and scalable code becomes crucial for long-term success.</p>
-      
+
       <h2>Component Architecture</h2>
       <p>The foundation of any scalable React application is a well-thought-out component architecture. Here are the key principles to follow:</p>
       <ul>
@@ -26,7 +28,7 @@ export default function BlogPost() {
         <li><strong>Composition over Inheritance:</strong> Use composition to build complex UIs from simple components</li>
         <li><strong>Prop Drilling Avoidance:</strong> Use Context API or state management libraries for deep data passing</li>
       </ul>
-      
+
       <h2>State Management</h2>
       <p>As your application grows, managing state becomes increasingly important. Consider these approaches:</p>
       <ol>
@@ -34,7 +36,7 @@ export default function BlogPost() {
         <li><strong>Context API:</strong> Great for app-wide state that doesn't change frequently</li>
         <li><strong>Redux/Zustand:</strong> For complex state logic and frequent updates</li>
       </ol>
-      
+
       <h2>Performance Optimization</h2>
       <p>Performance is crucial for user experience. Key optimization techniques include:</p>
       <ul>
@@ -43,112 +45,107 @@ export default function BlogPost() {
         <li>Code splitting with React.lazy and Suspense</li>
         <li>Virtual scrolling for large lists</li>
       </ul>
-      
-      <h2>Testing Strategy</h2>
-      <p>A comprehensive testing strategy ensures your application remains reliable as it scales:</p>
-      <ul>
-        <li><strong>Unit Tests:</strong> Test individual components and functions</li>
-        <li><strong>Integration Tests:</strong> Test component interactions</li>
-        <li><strong>End-to-End Tests:</strong> Test complete user workflows</li>
-      </ul>
-      
+
       <h2>Conclusion</h2>
       <p>Building scalable React applications requires careful planning, good architecture decisions, and continuous refactoring. By following these principles and best practices, you can create applications that are maintainable, performant, and ready to grow with your business needs.</p>
     `,
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Navigation */}
+    <div className="min-h-screen bg-bg text-ink">
       <Navigation />
 
-      <article className="pt-24 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back Button */}
+      <article className="pt-32 pb-16 md:pt-40">
+        <div className="mx-auto max-w-3xl px-6">
           <Link
             href="/blog"
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
           >
-            ← Back to Blog
+            <ArrowLeft className="h-4 w-4" />
+            Back to writing
           </Link>
 
-          {/* Article Header */}
-          <header className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
-              <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+          <header className="mt-8 mb-12">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-xs uppercase tracking-widest text-accent">
                 {post.category}
               </span>
-              <span className="text-gray-500 text-sm">
+              <span className="h-1 w-1 rounded-full bg-hairline-strong" />
+              <span className="font-mono text-xs text-muted">
                 {post.readTime} min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-3xl font-semibold leading-tight tracking-tight text-ink-strong sm:text-4xl md:text-5xl">
               {post.title}
             </h1>
-            <div className="flex items-center text-gray-600 dark:text-gray-400">
+            <div className="mt-6 flex items-center font-mono text-sm text-muted">
               <span>By {post.author}</span>
-              <span className="mx-2">•</span>
+              <span className="mx-2">·</span>
               <span>{post.date}</span>
             </div>
           </header>
 
-          {/* Article Content */}
           <div
-            className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300"
+            className="prose-minimal"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          {/* Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Share this article
-            </h3>
-            <div className="flex gap-4">
-              <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                📘 Share on LinkedIn
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors">
-                🐦 Share on Twitter
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                📱 Share on WhatsApp
-              </button>
+          {/* Share */}
+          <div className="mt-14 border-t border-hairline pt-8">
+            <p className="eyebrow mb-4">Share</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { label: "LinkedIn", href: "https://linkedin.com/in/kieu-duc-tech" },
+                { label: "Twitter", href: "#" },
+                { label: "Email", href: "mailto:david.kieu25@gmail.com" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="group inline-flex items-center gap-1.5 rounded-lg border border-hairline px-4 py-2 text-sm text-ink-strong transition-colors hover:border-accent hover:text-accent"
+                >
+                  {s.label}
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Author Bio */}
-          <div className="mt-12 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          {/* Author */}
+          <div className="mt-10 rounded-2xl border border-hairline bg-surface p-6">
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-2xl text-white">
-                👨‍💻
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ink-strong font-mono text-sm font-bold text-bg">
+                DK
               </div>
               <div>
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  About the Author
-                </h4>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  David Kieu is a passionate Computer Science student at the
-                  University of Adelaide with experience in full-stack
-                  development, computer vision, and game development.
+                <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                  Written by
                 </p>
-                <div className="flex gap-4">
+                <h3 className="mt-1 text-lg font-medium text-ink-strong">
+                  David Kieu
+                </h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted">
+                  Software engineer and Computer Science student at the University
+                  of Adelaide — full-stack, computer vision, and game development.
+                </p>
+                <div className="mt-3 flex gap-4 text-sm">
                   <a
                     href="https://linkedin.com/in/kieu-duc-tech"
-                    className="text-blue-600 hover:text-blue-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline"
                   >
                     LinkedIn
                   </a>
                   <a
                     href="https://github.com/monsieurkd"
-                    className="text-blue-600 hover:text-blue-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline"
                   >
                     GitHub
-                  </a>
-                  <a
-                    href="#"
-                    className="text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    Twitter
                   </a>
                 </div>
               </div>
@@ -157,15 +154,7 @@ export default function BlogPost() {
         </div>
       </article>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2025 David Kieu. All rights reserved.</p>
-          <p className="text-gray-400 mt-2">
-            Built with Next.js and Tailwind CSS
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

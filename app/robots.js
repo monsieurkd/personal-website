@@ -5,6 +5,6 @@ export default function robots() {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://yourwebsite.com/sitemap.xml",
+    sitemap: "https://davidkieu.dev/sitemap.xml",
   };
 }

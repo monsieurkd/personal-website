@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://yourwebsite.com";
+  const baseUrl = "https://davidkieu.dev";
 
   return [
     {
