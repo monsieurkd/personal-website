@@ -5,51 +5,34 @@ import { useParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
+import { posts } from "../posts";
 
 export default function BlogPost() {
   const params = useParams();
   const slug = params?.slug;
+  const post = posts.find((p) => p.slug === slug);
 
-  // Would normally come from a database or CMS.
-  const post = {
-    title: "Building Scalable React Applications",
-    date: "May 15, 2025",
-    readTime: 8,
-    category: "React",
-    author: "David Kieu",
-    content: `
-      <h2>Introduction</h2>
-      <p>Building scalable React applications is one of the most important skills for modern web developers. As applications grow in complexity, maintaining clean, efficient, and scalable code becomes crucial for long-term success.</p>
-
-      <h2>Component Architecture</h2>
-      <p>The foundation of any scalable React application is a well-thought-out component architecture. Here are the key principles to follow:</p>
-      <ul>
-        <li><strong>Single Responsibility Principle:</strong> Each component should have one clear purpose</li>
-        <li><strong>Composition over Inheritance:</strong> Use composition to build complex UIs from simple components</li>
-        <li><strong>Prop Drilling Avoidance:</strong> Use Context API or state management libraries for deep data passing</li>
-      </ul>
-
-      <h2>State Management</h2>
-      <p>As your application grows, managing state becomes increasingly important. Consider these approaches:</p>
-      <ol>
-        <li><strong>Local State:</strong> Use useState for component-specific state</li>
-        <li><strong>Context API:</strong> Great for app-wide state that doesn't change frequently</li>
-        <li><strong>Redux/Zustand:</strong> For complex state logic and frequent updates</li>
-      </ol>
-
-      <h2>Performance Optimization</h2>
-      <p>Performance is crucial for user experience. Key optimization techniques include:</p>
-      <ul>
-        <li>React.memo for preventing unnecessary re-renders</li>
-        <li>useMemo and useCallback for expensive calculations</li>
-        <li>Code splitting with React.lazy and Suspense</li>
-        <li>Virtual scrolling for large lists</li>
-      </ul>
-
-      <h2>Conclusion</h2>
-      <p>Building scalable React applications requires careful planning, good architecture decisions, and continuous refactoring. By following these principles and best practices, you can create applications that are maintainable, performant, and ready to grow with your business needs.</p>
-    `,
-  };
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-bg text-ink">
+        <Navigation />
+        <div className="mx-auto max-w-3xl px-6 py-40 text-center">
+          <h1 className="text-3xl font-semibold text-ink-strong">
+            Post not found
+          </h1>
+          <p className="mt-3 text-muted">That post doesn&apos;t exist.</p>
+          <Link
+            href="/blog"
+            className="mt-6 inline-flex items-center gap-1.5 text-sm text-accent"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to writing
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg text-ink">
@@ -128,7 +111,7 @@ export default function BlogPost() {
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted">
                   Software engineer and Computer Science student at the University
-                  of Adelaide — full-stack, computer vision, and game development.
+                  of Adelaide — AI/ML, data engineering, and full-stack software.
                 </p>
                 <div className="mt-3 flex gap-4 text-sm">
                   <a

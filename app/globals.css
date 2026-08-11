@@ -191,6 +191,36 @@ body {
   border-radius: 6px;
   border: 1px solid var(--hairline);
 }
+.prose-minimal h3 {
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 1.8rem 0 0.6rem;
+}
+.prose-minimal pre {
+  margin: 1.4rem 0;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.prose-minimal pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.prose-minimal blockquote {
+  margin: 1.4rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,

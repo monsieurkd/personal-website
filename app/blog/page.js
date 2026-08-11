@@ -6,63 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
-
-const POSTS = [
-  {
-    title: "Building Scalable React Applications",
-    excerpt:
-      "Best practices for structuring large React apps — state management, component architecture, and where the real complexity hides.",
-    date: "May 15, 2025",
-    readTime: 8,
-    category: "React",
-    slug: "building-scalable-react-applications",
-  },
-  {
-    title: "Next.js 15: New Features & Performance",
-    excerpt:
-      "A look at the latest in Next.js 15 and how the new capabilities can sharpen your app's performance.",
-    date: "May 10, 2025",
-    readTime: 6,
-    category: "Next.js",
-    slug: "nextjs-15-new-features",
-  },
-  {
-    title: "TypeScript Best Practices for Better Code",
-    excerpt:
-      "TypeScript patterns and habits that make codebases more maintainable and noticeably less buggy.",
-    date: "May 5, 2025",
-    readTime: 10,
-    category: "TypeScript",
-    slug: "typescript-best-practices",
-  },
-  {
-    title: "Database Design Patterns for Modern Apps",
-    excerpt:
-      "Understanding common database design patterns and when each one actually earns its place.",
-    date: "April 28, 2025",
-    readTime: 12,
-    category: "Database",
-    slug: "database-design-patterns",
-  },
-  {
-    title: "Deploying Full-Stack Apps with Docker",
-    excerpt:
-      "A practical guide to containerising and deploying full-stack applications without the usual headaches.",
-    date: "April 20, 2025",
-    readTime: 15,
-    category: "DevOps",
-    slug: "deploying-with-docker",
-  },
-  {
-    title: "Building RESTful APIs with Node & Express",
-    excerpt:
-      "How to build robust, scalable REST APIs with Node.js, Express, and modern development practices.",
-    date: "April 15, 2025",
-    readTime: 9,
-    category: "Backend",
-    slug: "building-restful-apis",
-  },
-];
+import { posts as POSTS } from "./posts";
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -86,8 +30,8 @@ export default function Blog() {
               Notes on building software.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Thoughts on web development, engineering practices, and the tools I
-              use day to day.
+              Deeper dives into AI systems, multi-agent design, and building
+              software you can actually trust.
             </p>
           </Reveal>
         </div>
