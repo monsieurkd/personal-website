@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  ArrowUpRight,
   Download,
   Mail,
   Github,
@@ -14,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Navigation from "./components/Navigation";
+import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Reveal from "./components/Reveal";
@@ -29,57 +29,19 @@ const SOCIALS = [
 ];
 
 const SKILL_GROUPS = [
-  {
-    label: "Languages",
-    items: ["Python", "JavaScript", "TypeScript", "SQL", "HTML & CSS"],
-  },
-  {
-    label: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS"],
-  },
-  {
-    label: "Backend",
-    items: ["Node.js", "Express", "REST APIs"],
-  },
-  {
-    label: "AI & Computer Vision",
-    items: ["OpenCV", "TensorFlow", "PyTorch", "scikit-learn", "NLP"],
-  },
-  {
-    label: "Tools & Practices",
-    items: ["Git & GitHub", "Docker", "Linux", "Agile"],
-  },
-];
-
-const PROJECTS = [
-  {
-    title: "AirGesture",
-    description:
-      "A real-time computer vision system that detects and interprets hand gestures, translating them into actionable commands.",
-    tech: ["Python", "OpenCV"],
-    href: "https://github.com/monsieurkd",
-  },
-  {
-    title: "Ping Pong & Chess",
-    description:
-      "2D games built on a custom physics engine, with AI-driven decision making powering the Chess opponent.",
-    tech: ["Python"],
-    href: "https://github.com/monsieurkd",
-  },
-  {
-    title: "AVA Club Website",
-    description:
-      "A responsive website for the AVA Club to showcase activities, with an events calendar and RSVP forms.",
-    tech: ["React", "Git"],
-    href: "https://github.com/monsieurkd",
-  },
+  { label: "Languages", items: ["Python", "TypeScript", "SQL", "C#", "JavaScript", "Bash"] },
+  { label: "AI / ML", items: ["PyTorch", "OpenCV", "NumPy", "Deep Q-Learning", "Multi-agent LLM systems"] },
+  { label: "Data", items: ["PostgreSQL", "Drizzle ORM", "Dapper", "SQL"] },
+  { label: "Backend", items: ["ASP.NET Core", "Node.js", "REST APIs", "WebSockets"] },
+  { label: "Frontend", items: ["React", "Next.js", "Tailwind CSS"] },
+  { label: "Platform", items: ["AWS", "Docker", "Git", "CI/CD", "Linux"] },
 ];
 
 const FACTS = [
   { icon: GraduationCap, label: "Education", value: "B. Computer Science, Univ. of Adelaide" },
   { icon: Briefcase, label: "Experience", value: "1+ years — Ecosmartvietnam, Kaopiz" },
   { icon: MapPin, label: "Location", value: "Adelaide, Australia" },
-  { icon: Sparkles, label: "Focus", value: "Full-stack · Computer Vision · Games" },
+  { icon: Sparkles, label: "Focus", value: "AI/ML · Data Engineering · Software" },
 ];
 
 export default function Home() {
@@ -127,8 +89,8 @@ export default function Home() {
 
           <Reveal delay={0.15}>
             <p className="mx-auto mt-6 max-w-2xl text-balance text-lg leading-relaxed text-muted md:text-xl">
-              I design and build reliable software — from full-stack web
-              applications to computer vision systems and games. Computer Science
+              I build across three disciplines — AI and machine-learning systems, data
+              engineering pipelines, and full-stack software. Computer Science
               student at the University of Adelaide.
             </p>
           </Reveal>
@@ -188,28 +150,29 @@ export default function Home() {
               <div className="space-y-5 text-lg leading-relaxed text-ink">
                 <p>
                   I&apos;m David, a Computer Science student at the University of
-                  Adelaide. I&apos;ve worked as a Software Engineer at{" "}
+                  Adelaide. My work spans three disciplines — AI and ML systems,
+                  data and automation pipelines, and full-stack web applications.
+                  I&apos;ve worked as a Software Engineer at{" "}
                   <span className="font-medium text-ink-strong">
                     Ecosmartvietnam
                   </span>
-                  , where I designed and deployed a production website, and as an
-                  intern at{" "}
+                  , deploying a commercial web app, and as an ML intern at{" "}
                   <span className="font-medium text-ink-strong">Kaopiz Inc.</span>,
-                  engineering computer vision models.
+                  building computer-vision pipelines for document images.
                 </p>
                 <p className="text-muted">
                   I&apos;m also active in the community — Treasurer for the
                   Vietnamese Students Association and a volunteer at university
                   events. I care about clean architecture, writing maintainable
-                  code, and mentoring junior developers.
+                  code, and building things that genuinely work.
                 </p>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-2">
                 {[
-                  "Full-stack development",
-                  "Computer vision",
-                  "Game development",
+                  "AI & ML systems",
+                  "Data engineering",
+                  "Full-stack software",
                   "Clean architecture",
                 ].map((tag) => (
                   <span
@@ -283,53 +246,7 @@ export default function Home() {
       </section>
 
       {/* ===== Projects ===== */}
-      <section id="projects" className="border-t border-hairline py-24 md:py-32">
-        <div className="mx-auto max-w-content px-6">
-          <Reveal>
-            <p className="eyebrow mb-3">Selected Work</p>
-            <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink-strong sm:text-4xl">
-              Things I&apos;ve built.
-            </h2>
-          </Reveal>
-
-          <Reveal delay={0.05}>
-            <div className="mt-12 divide-y divide-hairline border-y border-hairline">
-              {PROJECTS.map((project, index) => (
-                <a
-                  key={project.title}
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group grid grid-cols-[auto_1fr_auto] items-start gap-4 px-2 py-7 transition-colors hover:bg-surface-hover sm:gap-6 sm:px-4"
-                >
-                  <span className="font-mono text-sm text-muted">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-xl font-medium text-ink-strong transition-transform duration-300 group-hover:translate-x-1.5 sm:text-2xl">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 max-w-xl text-muted">
-                      {project.description}
-                    </p>
-                    <div className="mt-3.5 flex flex-wrap gap-1.5">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-hairline px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-muted"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
-                </a>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <Projects />
 
       {/* ===== Contact CTA ===== */}
       <section id="contact" className="border-t border-hairline bg-bg-subtle py-24 md:py-32">
