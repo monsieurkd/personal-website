@@ -5,78 +5,106 @@
 export const posts = [
   {
     slug: "3d-representation-training-speed",
-    title: "Does how you store 3D data change how fast you can train on it?",
+    title: "FLOPs got the speed ranking backwards",
     excerpt:
-      "Same 3D objects, four representations, same hardware: total training time spread by about 10x. The fastest had the most parameters, and the densest representation cooked the chip it ran on. A small controlled study in measuring real cost.",
+      "Same 3D objects, four ways to store them, one laptop. The figure we use to estimate compute, FLOPs, put the dense voxel grid near the cheap end; real training time put it dead last. The model with the most parameters trained fastest. Here is why fit-to-silicon beats theoretical compute on real hardware, and why a dense representation can cook the chip it runs on.",
     date: "August 12, 2026",
-    readTime: 11,
+    readTime: 12,
     category: "ML",
     author: "David Kieu",
     content: `
-      <h2>The question</h2>
-      <p>Most comparisons in 3D deep learning are between <em>models</em> — a new point-cloud network against an old one, a fresh voxel architecture against the previous best. Far fewer hold the task fixed and ask a simpler question: if you store the same 3D object in different <em>representations</em>, does that choice change how fast you can train on it and serve predictions from it?</p>
-      <p>This is not an academic distinction. A robot perceiving the world, or a phone running AR, has to pick a representation for its 3D input and live with the cost. So I ran a small, controlled study: take the same objects, convert each into four common representations, train a small appropriate network on each, and time everything on the same hardware.</p>
+      <h2>The number that lied to me</h2>
+      <p>Before I trained four neural networks on the same 3D objects, I did the sensible thing and estimated how much compute each one would need. The standard measure for that is called FLOPs, a count of the arithmetic the network does. By that number, the dense, blocky way of storing the objects looked cheap. When I actually ran it, it finished last by a factor of ten.</p>
+      <p>That mismatch is the whole post. The metric most people reach for to estimate cost gets the ranking backwards on the kind of hardware most of us actually own. The reason it does is worth understanding, because it changes how you pick a way to feed 3D data into anything that runs on a phone, a robot, or a laptop.</p>
+
+      <div class="not-prose my-8 rounded-2xl border border-hairline bg-surface p-6">
+        <p class="m-0 mb-4 text-sm font-semibold text-ink-strong">New here? 30-second glossary</p>
+        <dl class="m-0 text-sm leading-relaxed">
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">representation</dt> <dd class="ml-1 inline text-ink">how you store a 3D object as numbers a network can read</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">point cloud</dt> <dd class="ml-1 inline text-ink">a list of dots placed on the surface of the object</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">voxel (grid)</dt> <dd class="ml-1 inline text-ink">a 3D version of a pixel: a small cube that is either filled or empty</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">multi-view (2D)</dt> <dd class="ml-1 inline text-ink">ordinary flat pictures of the object taken from several angles</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">inference</dt> <dd class="ml-1 inline text-ink">using a trained model to make a prediction, as opposed to the training that produced it</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">FLOPs</dt> <dd class="ml-1 inline text-ink">a count of the multiplies and adds a network does; the usual estimate of how much compute it needs</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">wall-clock time</dt> <dd class="ml-1 inline text-ink">the real seconds you actually wait, stopwatch in hand</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">throttling</dt> <dd class="ml-1 inline text-ink">a chip slowing itself down on purpose so it does not overheat</dd></div>
+          <div class="mb-2"><dt class="inline font-semibold text-ink-strong">GPU</dt> <dd class="ml-1 inline text-ink">the processor that does the heavy maths inside a neural network</dd></div>
+          <div class="mb-0"><dt class="inline font-semibold text-ink-strong">ModelNet40</dt> <dd class="ml-1 inline text-ink">a standard collection of 12,311 labelled 3D objects in 40 categories, used to benchmark 3D methods</dd></div>
+        </dl>
+      </div>
+
+      <h2>Four ways to store one object</h2>
+      <p>A 3D object on a computer is a surface floating in space. To feed it to a neural network you have to turn that surface into a grid of numbers. There is no single right way, and the choice you make quietly decides a lot about how fast the network runs.</p>
+      <p>Four ways dominate the field. I will describe them with the same object each time so the difference is visual, not abstract.</p>
+      <ul>
+        <li><strong>Point cloud.</strong> Scatter a fixed number of dots on the surface, say a thousand, and store their coordinates. The network reads an unordered list of points. Cheap to store, but it throws away everything between the dots.</li>
+        <li><strong>Dense voxel grid.</strong> Divide the space around the object into a cube of smaller cubes, 32 along each edge, and mark each tiny cube as filled or empty. It is a 3D version of a pixel image. Complete, but for a typical object the vast majority of those cubes are empty air you still pay to carry around.</li>
+        <li><strong>Sparse voxel.</strong> Same idea as the dense grid, but store only the filled cubes and skip the air. This is the representation real lidar pipelines use, because the world is mostly empty and storing the emptiness is wasteful.</li>
+        <li><strong>Multi-view 2D.</strong> Stop trying to be three-dimensional. Take flat pictures of the object from several angles and let the network look at ordinary images. You lose depth, but you gain decades of optimisation built for photographs.</li>
+      </ul>
+      <p>Here is the same aeroplane, four ways:</p>
+      <img src="/blog/3d-rep/fig-reps.png" alt="Four panels showing the same 3D aeroplane stored as a point cloud of dots, a dense 32 by 32 by 32 voxel cube, a sparse set of only the filled voxels, and eight flat multi-view silhouettes." class="my-6 rounded-xl border border-hairline" />
+      <p>These are not four different objects. They are four different answers to the question "what numbers represent this shape", and each answer hands the network a different job.</p>
+
+      <h2>Two ways to measure cost, and why they should agree</h2>
+      <p>When you want to know how expensive a model is, there are two honest answers, and they measure different things.</p>
+      <p>The first is <strong>FLOPs</strong>, a count of the multiply-and-add operations the network performs for one example. It is a property of the network and the size of its input, full stop. It does not depend on which computer you run it on, which is exactly why people like it: it is clean, reproducible, and easy to put in a paper. When a study says a model is "lighter" or "more efficient", this is usually the number behind the claim.</p>
+      <p>The second is <strong>wall-clock time</strong>: the seconds you actually wait, stopwatch in hand, on a specific piece of hardware. It is everything FLOPs is not. It is messy, it depends on the machine, and it refuses to be a single clean number.</p>
+      <p>If FLOPs were a faithful guide, the two would rank a set of models in the same order. The model that does the most arithmetic would take the longest; the one that does the least would finish first. That is the assumption hiding behind every FLOPs comparison. I want to show you where it breaks.</p>
 
       <h2>The setup</h2>
-      <p>I used ModelNet40, the standard 12,311-mesh, 40-class benchmark of CAD objects. Every mesh gets normalised to the unit sphere, then converted into four representations, each fed to a small, deliberately old-school network so the cost reflects the representation rather than a heavy modern backbone:</p>
-      <ul>
-        <li><strong>Point cloud</strong> — 1,024 points sampled on the surface. A PointNet.</li>
-        <li><strong>Dense voxel grid</strong> — the shape voxelised into a 32x32x32 occupancy cube. A small 3D-convolution net (VoxNet).</li>
-        <li><strong>Sparse voxel</strong> — only the occupied cells, stored as a coordinate list. The representation real lidar pipelines use.</li>
-        <li><strong>Multi-view 2D</strong> — the mesh rendered into eight 2D silhouette images from different angles. A 2D-convolution net, like the classic multi-view CNNs.</li>
-      </ul>
-      <p>Same objects, same train and test split, same hardware, same epoch budget. The only thing that varies is the representation.</p>
+      <p>I took ModelNet40, the standard benchmark of 12,311 CAD objects across 40 categories. Every object gets normalised to fit inside a unit sphere, then converted into the four representations above. Each representation goes to a small, deliberately old-fashioned network: a PointNet for the point cloud, a VoxNet doing 3D convolutions for the dense grid, the same point-based net reading the sparse cells, and a small 2D-convolution net for the multi-view images. I chose old, simple networks on purpose, so the cost reflects the representation rather than some heavy modern backbone.</p>
+      <p>Same objects, same split, same 15 epochs of training, same batch size of 32, all on one passively-cooled Apple Silicon laptop. That last detail matters more than it sounds. The processor is the laptop's built-in GPU, and it has no fan. This is the kind of thermally constrained hardware a real robot or phone runs on, not the actively cooled card in a data centre.</p>
 
-      <h2>The result: roughly a 10x spread</h2>
-      <p>Total wall-clock time to train for 15 epochs, on a passively-cooled Apple Silicon laptop (the kind of thermally-constrained hardware an edge device or a deployed robot actually runs on):</p>
-      <pre><code>representation       total train      inference        accuracy
-multi-view 2D         2.7 min         0.4 ms/sample      81.0%
-sparse voxel         11.4 min         1.5 ms/sample      83.5%
-point cloud        12-13 min         1.4-1.9 ms/sample   82.9%
-dense voxel          25-29 min        2.8-3.4 ms/sample   84.9%</code></pre>
-      <p>Two things jump out. The spread is large — about 10x from the fastest representation to the slowest. And the ranking is not what you would guess from model size.</p>
+      <h2>What happened: about a tenfold spread</h2>
+      <p>Total wall-clock time to train, 15 epochs, on that one laptop:</p>
+      <pre><code>representation      train (15 epochs)   inference       accuracy   parameters
+multi-view 2D             2.7 min       0.4 ms/sample      81.0%      1,149,000
+sparse voxel             11.4 min       1.5 ms/sample      83.5%        815,336
+point cloud              13.4 min       1.9 ms/sample      82.9%        815,336
+dense voxel              29.2 min       3.4 ms/sample      84.9%        918,728</code></pre>
+      <img src="/blog/3d-rep/fig-training-time.png" alt="Horizontal bar chart of total training time for the four representations. Multi-view 2D is shortest at 2.7 minutes, then sparse voxel at 11.4, point cloud at 13.4, and dense voxel longest at 29.2 minutes." class="my-6 rounded-xl border border-hairline" />
+      <p>Two things jump out before we get to the interesting part. The spread is large, roughly ten times from fastest to slowest. And the ranking is already not what model size would predict: the dense grid, which stores the most complete description of the shape, is also the slowest by a wide margin, while the multi-view pictures, which throw depth away entirely, are far and away the fastest.</p>
 
-      <h2>Parameter count does not predict speed</h2>
-      <p>Here is the counterintuitive part. The fastest representation, multi-view 2D, has the <em>most</em> parameters of the four. The slowest, dense voxel, is in the middle of the pack on parameter count. If you tried to estimate training cost from model size, you would get the ranking exactly wrong.</p>
-      <p>What actually predicts speed is how well the representation's compute maps onto the hardware. 2D convolution is what GPUs and the Apple Neural Engine are built for; the whole chip is tuned for it. 3D convolution over a dense cube is structurally similar but far less optimised on most hardware, and it moves far more memory per useful operation. The representation's <em>fit to the silicon</em> dominates the raw parameter count, every time.</p>
+      <h2>The reveal: size does not predict speed</h2>
+      <p>Here is where FLOPs comes back, and where it gets caught out. Look at the two charts below. They plot the same four representations, in the same colours, but the left chart ranks them by theoretical FLOPs and the right chart ranks them by the real wall-clock time I measured.</p>
+      <img src="/blog/3d-rep/fig-flops-vs-wallclock.png" alt="Two side-by-side bar charts of the four representations. On the left, FLOPs per sample: point cloud and sparse voxel are highest at about 295 million, dense voxel is third at 170 million, multi-view 2D is lowest at 96 million. On the right, wall-clock training time: dense voxel is highest at 29.2 minutes, then point cloud, sparse voxel, and multi-view 2D lowest at 2.7 minutes. The two rankings disagree." class="my-6 rounded-xl border border-hairline" />
+      <p>Read them together. On the left, the theory, the point cloud and sparse voxel come out most expensive at around 295 million operations each, the dense voxel sits comfortably cheap in third place at 170 million, and multi-view is the cheapest at 96 million. On the right, the reality, the dense voxel is the <em>slowest</em> of the four and multi-view is the fastest. The dense grid is the second cheapest by FLOPs and the most expensive by the clock. The two charts disagree, and that disagreement is the proof, not a measurement error.</p>
+      <p>The parameter count tells the same story from another angle. The fastest model, multi-view, has the <em>most</em> parameters of the four. The slowest, dense voxel, is mid-pack on size. If you tried to estimate training cost from how big the model is, you would order them exactly wrong.</p>
+      <p>So what does predict speed, if neither size nor raw operation count does? It is how well the representation's compute maps onto the silicon. FLOPs quietly assume two things that real hardware breaks. First, that every operation costs the same. Second, that operations can run back to back at peak speed. On a real chip neither holds. A 3D convolution sweeping through a dense cube spends much of its time fetching numbers out of memory, not doing arithmetic, and most of those numbers describe empty air. And the fast paths on the processor are tuned over many years for the dense 2D image workload that multi-view uses; the 3D cube is structurally similar but far less optimised. The representation's <em>fit to the silicon</em> dominates the operation count, every time.</p>
 
-      <h2>The thing I did not expect: dense representations cook themselves</h2>
-      <p>I expected dense voxel to be slow. I did not expect to watch it get slower as it ran. Within a single 15-epoch training run, the per-epoch time climbs — the chip heats up under sustained load and throttles itself, and the heaviest representation heats the chip the most and throttles the hardest. Run it again from a cold start and you get a different number; the variance between two runs of the same representation sits around 12 to 17 percent.</p>
-      <p>My first guess was that the later runs in my sequence were slow because the machine was already warm from the earlier ones. That turned out to be wrong — a cold re-run of the dense voxel model was actually <em>slower</em> than the warm one. The workload reheats the chip during the run itself; cooling it down beforehand does not help.</p>
-      <p>This is the part I want to dwell on, because it changes what "fast" means.</p>
-
-      <h2>Why I measured wall-clock, not FLOPs</h2>
-      <p>The usual way to compare compute cost is theoretical FLOPs, or peak TFLOPs under ideal cooling. That number is clean and reproducible, and on a big actively-cooled data-centre GPU it is close to what you actually experience. On a laptop, a Jetson, or any thermally-constrained device a real robot or edge system runs on, it is a fiction. The chip throttles, and the heaviest representations throttle the most.</p>
-      <p>So I treated the throttle as part of the measurement rather than noise to scrub away. The headline numbers are wall-clock times a practitioner actually waits through, on hardware that resembles a deployment target. That makes them messier than a FLOP count — but messier and honest beats clean and misleading. A benchmark that hides throttling tells you nothing about what deploying the representation will actually cost on the hardware you have.</p>
-      <p>There is a real finding hiding in that mess. On thermally-constrained hardware, dense 3D representations pay a <em>super-linear</em> penalty. They cost more operations, and those operations heat the chip, which slows the next batch, which extends the run. The cost compounds. A clean-room benchmark would flatten that effect and miss it entirely.</p>
+      <h2>The thing I did not expect: it cooks itself</h2>
+      <p>I expected the dense grid to be slow. I did not expect to watch it get slower as it ran. Within a single 15-epoch training run, the time taken by each epoch climbs as the run goes on. The chip heats up under the sustained load and throttles itself to protect against damage, and the heaviest representation heats the chip the most and therefore throttles the hardest.</p>
+      <img src="/blog/3d-rep/fig-throttle.png" alt="Line chart of seconds per epoch across 15 epochs. The dense voxel line climbs over the run while the multi-view line stays flat near the bottom. A second dense voxel run, shown dotted, follows a different path, illustrating run-to-run variance." class="my-6 rounded-xl border border-hairline" />
+      <p>Run the dense model again from a cold start and you get a different total, because the workload reheats the chip during the run itself. Two clean runs of the same dense voxel model came in at 25.0 and 29.2 minutes, about fifteen percent apart. My first guess was that the later runs in my sequence were slow only because the machine was already warm from the earlier ones. That turned out to be wrong: cooling the machine down beforehand did not help. The heat builds up <em>inside</em> the run, not between runs.</p>
+      <p>This is the part that changes what "fast" means on this class of hardware. The dense representation pays a penalty that is more than linear. More operations means more heat, which means more throttling, which means each batch takes longer, which extends the run, which generates more heat. The cost compounds on itself. A benchmark run on a big, actively cooled data-centre GPU flattens this effect out of existence, because that chip never has to slow down. On the hardware a phone or a robot actually carries, the throttling is the cost.</p>
 
       <h2>What this does not prove</h2>
-      <p>I want to be careful not to overclaim, because this is a personal study, not a paper.</p>
+      <p>I want to be careful not to overclaim. A few honest limits:</p>
       <ul>
-        <li><strong>One machine.</strong> The absolute numbers are specific to a passively-cooled laptop. On an actively-cooled data-centre GPU the ranking could shift, and the throttle effect would largely vanish. The thermal-coupling finding is a property of edge-class hardware, not of the representations in general.</li>
-        <li><strong>Deliberately small, older models.</strong> I used PointNet and VoxNet on purpose, so the cost reflects the representation rather than a modern optimised backbone. That means the accuracy numbers sit below the current state of the art, and the speed numbers would move with better nets. The relative ranking is the point, not the absolutes.</li>
-        <li><strong>Sparse voxel was approximated.</strong> Production sparse-voxel pipelines use sparse 3D convolution (spconv), which I could not run on this hardware. I read the occupied cells as a point set through a PointNet instead, which tests the sparse-storage idea honestly but is not the production-grade net. Treat that column as indicative.</li>
-        <li><strong>One dataset, one task, light training.</strong> ModelNet40 object classification, 15 epochs. Real claims need multiple datasets, segmentation and detection tasks, and converged training.</li>
+        <li><strong>One machine.</strong> The absolute numbers are specific to a passively-cooled laptop. On an actively cooled data-centre GPU the ranking could shift, and the throttling effect would largely vanish. The thermal finding is a property of edge-class hardware, not of the representations in general.</li>
+        <li><strong>Deliberately small, older models.</strong> I used PointNet and VoxNet on purpose so the cost reflects the representation rather than a modern backbone. The accuracy numbers sit below the state of the art, and the speed numbers would move with better nets. The relative ranking is the point, not the absolutes.</li>
+        <li><strong>The sparse column is a stand-in.</strong> Production sparse-voxel pipelines use a library called spconv for sparse 3D convolution, which I could not run on this hardware. I read the occupied cells as a point set through a PointNet instead, which tests the sparse-storage idea honestly but is not the production-grade net. Treat that column as indicative.</li>
+        <li><strong>One dataset, one task.</strong> ModelNet40 object classification, 15 epochs. A stronger claim needs more datasets, segmentation and detection tasks, and fully converged training.</li>
       </ul>
-      <p>In other words, this is a directional, honestly-measured study that reflects real edge-hardware costs. It is the kind of thing that informs an engineering choice. It is not the kind of thing that settles a research question.</p>
-
-      <h2>What I would run next</h2>
-      <ul>
-        <li><strong>A resolution sweep</strong> — re-run the dense voxel grid at 32, 64, and 128, to show the cubic-cost curve directly. The point cloud and multi-view representations stay roughly flat; the dense cube blows up. That single chart is the cleanest argument against going dense.</li>
-        <li><strong>Multiple seeds, monitored temperature.</strong> Three seeds per representation, each from a cold start, with the chip temperature logged, so the variance becomes a reported quantity instead of a confound.</li>
-        <li><strong>A real edge device and a real data-centre GPU.</strong> Run the same four representations on a Jetson and on an actively-cooled GPU. That separates the representation effect from the thermal-coupling effect, which a single-machine study cannot.</li>
-      </ul>
+      <p>The direction is real and the mechanism is real. The exact numbers are a snapshot of one laptop on two afternoons.</p>
 
       <h2>The practical takeaway</h2>
-      <p>If you are picking a 3D representation for something that runs on constrained hardware — a robot, a phone, an edge device — treat it as an engineering decision, not a given. Prefer 2D or sparse representations when you can; reach for dense 3D only when its accuracy edge is worth roughly an order of magnitude more wall-clock, plus the thermal tax. And do not estimate the cost from the number of parameters. Estimate it from how the representation's compute maps onto the silicon you actually have.</p>
+      <p>If you are picking a 3D representation for something that runs on constrained hardware, treat it as an engineering decision, not a given. The rule that fell out of this for me:</p>
+      <ul>
+        <li>Do not estimate cost from the number of parameters, and do not trust FLOPs alone either. Both got the ranking wrong here.</li>
+        <li>Estimate cost from how the representation's compute maps onto the silicon you will actually deploy on, then confirm it with a stopwatch.</li>
+        <li>Prefer the 2D multi-view or the sparse representation when you can. Reach for the dense 3D grid only when its accuracy edge is worth roughly an order of magnitude more waiting, plus the thermal tax that comes with it.</li>
+      </ul>
+      <p>The fastest representation was the one that threw the most information away and asked the chip to do what it was already built for. That is not a coincidence, and it is the lesson I keep coming back to: fit to the silicon beats fidelity to the shape.</p>
       <p>The code, the conversions, the timing harness, and the full numbers are on <a href="https://github.com/monsieurkd/3d-repr-benchmark" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
 
       <p class="further"><strong>Further reading:</strong></p>
       <ul>
-        <li>Qi et al., <em>PointNet</em> (CVPR 2017) — learning directly on raw point sets: <a href="https://arxiv.org/abs/1612.00593" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1612.00593</a></li>
-        <li>Su et al., <em>Multi-View CNN for 3D Shape Recognition</em> (ICCV 2015) — rendering 3D shapes to 2D views for recognition: <a href="https://arxiv.org/abs/1505.00880" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1505.00880</a></li>
-        <li>Qi et al., <em>Volumetric and Multi-View CNNs for Object Classification on 3D Data</em> (ECCV 2016) — the closest precedent, a controlled volumetric-versus-multi-view comparison: <a href="https://arxiv.org/abs/1604.03265" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1604.03265</a></li>
-        <li>Liu et al., <em>Point-Voxel CNN</em> (NeurIPS 2019) — a hybrid that uses points for memory and voxels for convolution, evidence that no single pure representation wins: <a href="https://arxiv.org/abs/1907.03739" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1907.03739</a></li>
+        <li>Qi et al., <em>PointNet</em> (CVPR 2017), learning directly on raw point sets: <a href="https://arxiv.org/abs/1612.00593" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1612.00593</a></li>
+        <li>Su et al., <em>Multi-View CNN for 3D Shape Recognition</em> (ICCV 2015), rendering 3D shapes to 2D views for recognition: <a href="https://arxiv.org/abs/1505.00880" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1505.00880</a></li>
+        <li>Qi et al., <em>Volumetric and Multi-View CNNs for Object Classification on 3D Data</em> (ECCV 2016), the closest precedent, a controlled volumetric-versus-multi-view comparison: <a href="https://arxiv.org/abs/1604.03265" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1604.03265</a></li>
+        <li>Liu et al., <em>Point-Voxel CNN</em> (NeurIPS 2019), a hybrid that uses points for memory and voxels for convolution, evidence that no single pure representation wins: <a href="https://arxiv.org/abs/1907.03739" target="_blank" rel="noopener noreferrer">arxiv.org/abs/1907.03739</a></li>
       </ul>
     `,
   },
