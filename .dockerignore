@@ -1,0 +1,15 @@
+# Files excluded from the Docker build context. Without this, `COPY . .`
+# would ship node_modules, .next, .git, etc. into the image — huge and stale.
+node_modules
+.next
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md
+README-NEW.md
+README-OLD.md
+README-DAVID.md
+DEPLOYMENT.md
+npm-debug.log*
+.DS_Store

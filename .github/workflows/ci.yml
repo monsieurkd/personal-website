@@ -33,3 +33,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # Validate the Docker image builds too. This is the "complete spec"
+      # check: the container bundles OS + Node + deps + code, and CI rebuilds
+      # it from scratch on every PR so a Dockerfile break is caught at the gate.
+      # Docker is preinstalled on GitHub-hosted Ubuntu runners.
+      - name: Build Docker image
+        run: docker build -t personal-website:ci .
