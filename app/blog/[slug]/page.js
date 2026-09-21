@@ -78,7 +78,7 @@ export default function BlogPost() {
             <p className="eyebrow mb-4">Share</p>
             <div className="flex flex-wrap gap-2">
               {[
-                { label: "LinkedIn", href: "https://linkedin.com/in/kieu-duc-tech" },
+                { label: "LinkedIn", href: "https://linkedin.com/in/david-kieu-tech" },
                 { label: "Twitter", href: "#" },
                 { label: "Email", href: "mailto:david.kieu25@gmail.com" },
               ].map((s) => (
@@ -115,7 +115,7 @@ export default function BlogPost() {
                 </p>
                 <div className="mt-3 flex gap-4 text-sm">
                   <a
-                    href="https://linkedin.com/in/kieu-duc-tech"
+                    href="https://linkedin.com/in/david-kieu-tech"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent hover:underline"

@@ -21,7 +21,7 @@ import Reveal from "./components/Reveal";
 const SOCIALS = [
   { href: "https://github.com/monsieurkd", label: "GitHub", icon: Github },
   {
-    href: "https://linkedin.com/in/kieu-duc-tech",
+    href: "https://linkedin.com/in/david-kieu-tech",
     label: "LinkedIn",
     icon: Linkedin,
   },
@@ -29,19 +29,18 @@ const SOCIALS = [
 ];
 
 const SKILL_GROUPS = [
-  { label: "Languages", items: ["Python", "TypeScript", "SQL", "C#", "JavaScript", "Bash"] },
+  { label: "Languages", items: ["Python", "SQL", "TypeScript", "JavaScript", "C#", "Bash"] },
+  { label: "Data Engineering", items: ["dbt", "DuckDB", "ETL Pipelines", "Medallion Architecture", "Parquet", "Data Quality Testing", "Dimensional Modelling", "Idempotent Builds"] },
+  { label: "Databases & Storage", items: ["PostgreSQL", "DuckDB", "SQL Server", "Parquet", "Drizzle ORM", "Dapper"] },
   { label: "AI / ML", items: ["PyTorch", "OpenCV", "NumPy", "Deep Q-Learning", "Multi-agent LLM systems"] },
-  { label: "Data", items: ["PostgreSQL", "Drizzle ORM", "Dapper", "SQL"] },
-  { label: "Backend", items: ["ASP.NET Core", "Node.js", "REST APIs", "WebSockets"] },
-  { label: "Frontend", items: ["React", "Next.js", "Tailwind CSS"] },
-  { label: "Platform", items: ["AWS", "Docker", "Git", "CI/CD", "Linux"] },
+  { label: "Platform", items: ["AWS", "Docker", "Git", "CI/CD", "Linux", "Make"] },
 ];
 
 const FACTS = [
-  { icon: GraduationCap, label: "Education", value: "B. Computer Science, Univ. of Adelaide" },
-  { icon: Briefcase, label: "Experience", value: "1+ years — Ecosmartvietnam, Kaopiz" },
+  { icon: GraduationCap, label: "Education", value: "B. Computer Science (AI), Univ. of Adelaide" },
+  { icon: Briefcase, label: "Experience", value: "Research Intern (ML) at Univ. of Adelaide; Kaopiz, Ecosmartvietnam" },
   { icon: MapPin, label: "Location", value: "Adelaide, Australia" },
-  { icon: Sparkles, label: "Focus", value: "AI/ML · Data Engineering · Software" },
+  { icon: Sparkles, label: "Focus", value: "Data Engineering · Pipelines · Analytics" },
 ];
 
 export default function Home() {
@@ -89,9 +88,11 @@ export default function Home() {
 
           <Reveal delay={0.15}>
             <p className="mx-auto mt-6 max-w-2xl text-balance text-lg leading-relaxed text-muted md:text-xl">
-              I build across three disciplines — AI and machine-learning systems, data
-              engineering pipelines, and full-stack software. Computer Science
-              student at the University of Adelaide.
+              I build data pipelines that hold up in production — reliable,
+              tested, and reproducible from raw source to queryable tables. I
+              work in Python, SQL, dbt and DuckDB, with a background in AI and
+              machine learning. Computer Science student at the University of
+              Adelaide.
             </p>
           </Reveal>
 
@@ -141,7 +142,7 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow mb-3">About</p>
             <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink-strong sm:text-4xl">
-              A builder who cares about clean code and the people who use it.
+              Data engineering with an obsession for reproducibility.
             </h2>
           </Reveal>
 
@@ -149,31 +150,33 @@ export default function Home() {
             <Reveal delay={0.05}>
               <div className="space-y-5 text-lg leading-relaxed text-ink">
                 <p>
-                  I&apos;m David, a Computer Science student at the University of
-                  Adelaide. My work spans three disciplines — AI and ML systems,
-                  data and automation pipelines, and full-stack web applications.
-                  I&apos;ve worked as a Software Engineer at{" "}
+                  I&apos;m David, a Computer Science (AI) student at the University
+                  of Adelaide. I build data pipelines end-to-end — ingestion,
+                  modelling and the quality checks that make the output
+                  trustworthy — and I care as much about whether a pipeline can
+                  be re-run as whether it runs at all.
+                </p>
+                <p className="text-muted">
+                  Most recently I&apos;ve been a Research Intern in Machine
+                  Learning at the University of Adelaide, building reproducible
+                  Python experiment pipelines. Before that I worked as an ML
+                  engineer at{" "}
+                  <span className="font-medium text-ink-strong">Kaopiz</span>,
+                  building computer-vision data pipelines for document images,
+                  and as a software engineer at{" "}
                   <span className="font-medium text-ink-strong">
                     Ecosmartvietnam
                   </span>
-                  , deploying a commercial web app, and as an ML intern at{" "}
-                  <span className="font-medium text-ink-strong">Kaopiz Inc.</span>,
-                  building computer-vision pipelines for document images.
-                </p>
-                <p className="text-muted">
-                  I&apos;m also active in the community — Treasurer for the
-                  Vietnamese Students Association and a volunteer at university
-                  events. I care about clean architecture, writing maintainable
-                  code, and building things that genuinely work.
+                  .
                 </p>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-2">
                 {[
-                  "AI & ML systems",
-                  "Data engineering",
-                  "Full-stack software",
-                  "Clean architecture",
+                  "Data pipelines",
+                  "dbt & DuckDB",
+                  "Data quality",
+                  "Reproducible builds",
                 ].map((tag) => (
                   <span
                     key={tag}

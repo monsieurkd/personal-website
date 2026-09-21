@@ -35,7 +35,7 @@ export default function Footer() {
                   icon: Github,
                 },
                 {
-                  href: "https://linkedin.com/in/kieu-duc-tech",
+                  href: "https://linkedin.com/in/david-kieu-tech",
                   label: "LinkedIn",
                   icon: Linkedin,
                 },

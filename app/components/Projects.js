@@ -6,8 +6,8 @@ import Reveal from "./Reveal";
 
 const CATEGORIES = [
   { key: "all", label: "All" },
-  { key: "ai", label: "AI / ML" },
   { key: "data", label: "Data Eng" },
+  { key: "ai", label: "AI / ML" },
   { key: "swe", label: "Software" },
 ];
 
@@ -17,26 +17,42 @@ const CATEGORY_LABEL = { ai: "AI/ML", data: "Data", swe: "Software" };
 // Keep these in sync with base.yaml so the site and CV never drift.
 const PROJECTS = [
   {
-    title: "Voice Debrief",
-    categories: ["ai"],
+    title: "ROS-Bag Telemetry Analytics Pipeline",
+    categories: ["data"],
     description:
-      "An agentic LLM journaling app: a small-model driver runs a reflect-then-probe interview, a strong model extracts Zod-validated structured rows, and an editable doc writes corrections straight back to the data layer.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Zod"],
-    href: "https://github.com/monsieurkd/voice-debrief",
+      "An end-to-end pipeline over ROS 2 robot telemetry: raw bag recordings (IMU, odometry, LiDAR) are landed as partitioned Parquet, then transformed through a bronze→silver→gold medallion architecture in dbt and DuckDB. Derives sensor rates from the data rather than trusting nominal rates, so a session that silently dropped 35% of its IMU messages is flagged as degraded. Idempotency is proven, not claimed: make verify rebuilds the warehouse twice and compares the gold layer byte-for-byte.",
+    tech: ["Python", "dbt", "DuckDB", "Parquet", "ROS 2"],
+    href: "https://github.com/monsieurkd/rosbag-de-pipeline",
   },
   {
     title: "Multi-Agent Data-Engineering Swarm",
     categories: ["ai", "data"],
     description:
-      "An autonomous multi-agent system that drives a data-engineering task end-to-end through role-specialised subagents (Planner, Builder, Verifier) in a plan-build-verify loop that returns a machine-checkable pass/fail.",
+      "An autonomous multi-agent system that drives a data-engineering task end-to-end through role-specialised subagents (Planner, Builder, Verifier) in a plan-build-verify loop that returns a machine-checkable pass/fail. Reliability comes from agent design rather than prompting — each role has restricted tools and a file-based data contract is the sole hand-off between stages.",
     tech: ["Multi-agent orchestration", "Claude Code subagents", "Python"],
     href: "https://github.com/monsieurkd",
+  },
+  {
+    title: "Voice Debrief",
+    categories: ["ai", "data"],
+    description:
+      "An agentic LLM journaling app that turns unstructured spoken input into typed, schema-validated PostgreSQL rows: a small-model driver runs a reflect-then-probe interview, a strong model extracts Zod-validated structured data with a retry loop, and an editable document writes corrections back through the data layer rather than around it.",
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Zod"],
+    href: "https://github.com/monsieurkd/voice-debrief",
+  },
+  {
+    title: "3D Representation Benchmark",
+    categories: ["data", "ai"],
+    description:
+      "A controlled benchmark holding task, data and hardware fixed across four 3D representations (point cloud, dense voxel, sparse voxel, multi-view) on ModelNet40, varying only the representation to isolate its effect on compute. Found multi-view ran up to ~9x faster per epoch than dense voxel at comparable accuracy, and that parameter count did not predict speed.",
+    tech: ["Python", "PyTorch", "NumPy", "ModelNet40"],
+    href: "https://github.com/monsieurkd/3d-repr-benchmark",
   },
   {
     title: "Flappy Bird DQN",
     categories: ["ai"],
     description:
-      "A Deep Q-Network built from scratch in PyTorch (experience replay, target network, epsilon-greedy) with no RL libraries, reaching a mean score of 28/30 pipes over 100 evaluation episodes.",
+      "A Deep Q-Network built from scratch in PyTorch (experience replay, target network, epsilon-greedy) with no RL libraries, reaching a mean score of 28/30 pipes over 100 evaluation episodes. Structured into single-responsibility modules with deterministic PyTest coverage and a seeded, reproducible training pipeline.",
     tech: ["Python", "PyTorch", "PyTest", "NumPy"],
     href: "https://github.com/monsieurkd/flappy-bird-dqn",
   },
@@ -44,32 +60,16 @@ const PROJECTS = [
     title: "Kaopiz Document-Image CV Pipeline",
     categories: ["data"],
     description:
-      "A computer-vision pipeline in Python and OpenCV to detect and localise Japanese characters in document images, using contour detection and morphological operations to extract character regions.",
+      "A computer-vision pipeline in Python and OpenCV to detect and localise Japanese characters in document images, scripting reproducible preprocessing from raw images to extracted character regions using contour detection and morphological operations.",
     tech: ["Python", "OpenCV"],
     href: "https://github.com/monsieurkd",
   },
   {
     title: "Restaurant Management Platform",
-    categories: ["swe"],
+    categories: ["swe", "data"],
     description:
-      "A full-stack restaurant platform with an ASP.NET Core Web API (Dapper and raw SQL on PostgreSQL) and React frontends, real-time order tracking over WebSockets, and Stripe + Lightspeed POS integration.",
+      "A full-stack restaurant platform with an ASP.NET Core Web API (Dapper and parameterised raw SQL on PostgreSQL) and React frontends. Modelled a normalised PostgreSQL schema with constraints and indexes backing the hot read paths, routed real-time order data over WebSockets, and persisted third-party events (Stripe payments, Lightspeed POS sync) consistently alongside order records.",
     tech: ["C#", "ASP.NET Core", "Dapper", "PostgreSQL", "React"],
-    href: "https://github.com/monsieurkd",
-  },
-  {
-    title: "Discord Clone",
-    categories: ["swe"],
-    description:
-      "The foundation of a Discord-style chat app with React and Node.js — JWT authentication (register, login, refresh) and a Socket.io WebSocket server scaffold, over a normalised PostgreSQL schema.",
-    tech: ["Node.js", "React", "WebSocket", "PostgreSQL"],
-    href: "https://github.com/monsieurkd",
-  },
-  {
-    title: "Ecosmart Web Application",
-    categories: ["swe"],
-    description:
-      "A full-stack web application built with Flask and PostgreSQL, architected and shipped end-to-end while leading a cross-functional team across the full software development lifecycle.",
-    tech: ["Flask", "PostgreSQL", "JavaScript"],
     href: "https://github.com/monsieurkd",
   },
 ];
