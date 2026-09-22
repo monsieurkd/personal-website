@@ -22,8 +22,8 @@ const METHODS = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "/in/kieu-duc-tech",
-    href: "https://linkedin.com/in/kieu-duc-tech",
+    value: "/in/david-kieu-tech",
+    href: "https://linkedin.com/in/david-kieu-tech",
     note: "Professional profile",
   },
   {
@@ -42,7 +42,7 @@ const FAQ = [
   },
   {
     q: "What types of projects do you take on?",
-    a: "Web applications, full-stack features, and computer-vision work — typically with React, Next.js, Node.js, and Python.",
+    a: "Data pipelines and analytics work, plus the AI/ML and computer-vision projects behind them — typically in Python, SQL, dbt, and PostgreSQL.",
   },
   {
     q: "Are you open to remote or international work?",
