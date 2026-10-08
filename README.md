@@ -1,155 +1,78 @@
-# David Kieu - Personal Portfolio Website
+# david-kieu — personal site
 
-A modern, responsive personal portfolio website showcasing my work as a Senior Software Developer. Built with Next.js 15, React 19, and Tailwind CSS.
+My personal site and blog. Written with Next.js (App Router), React and
+Tailwind CSS, and deployed on Vercel.
 
-![Portfolio Preview](https://via.placeholder.com/800x400/0066cc/ffffff?text=David+Kieu+Portfolio)
+**Live:** https://david-kieu-personal-website.vercel.app
 
-## 🚀 Live Website
+## What's here
 
-Visit my portfolio: [davidkieu.dev](https://davidkieu.dev)
+- **Home** — short intro, skills, and selected projects
+- **Blog** — longer write-ups on work I've done
+- **Contact** — a form and my details
+- **CV** — `public/david-kieu-cv.pdf`, linked from the home page
 
-## 👨‍💻 About Me
+The projects section groups work by discipline (AI/ML, data engineering,
+software), and the filter tabs are just client-side state over one array.
 
-Senior Software Developer with 5+ years of experience building scalable web applications. Specialized in:
-- Full-stack development with React and Node.js
-- System architecture and cloud services
-- Team leadership and mentoring
-- CI/CD implementation and DevOps practices
+## Blog posts
 
-## 🛠️ Tech Stack
+Four posts, each written from something I actually built:
 
-- **Frontend**: Next.js 15, React 19, Tailwind CSS
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL, MongoDB
-- **Cloud**: AWS, Docker
-- **Tools**: Git, GitHub Actions, Vercel
+- [Why FLOPs mislead on real 3D hardware](app/blog/posts.js) — a controlled
+  benchmark across four 3D data representations
+- [The new way to code: guardrails and tests, not line-by-line control](app/blog/posts.js)
+- [Designing an autonomous multi-agent data-engineering swarm](app/blog/posts.js)
+- [Reliability for LLM apps: routing, retries, and deterministic control](app/blog/posts.js)
 
-## ✨ Features
+Posts live in a single array in `app/blog/posts.js`; the list page and the
+`/blog/[slug]` route both read from it.
 
-- 🎨 Modern, responsive design with dark/light mode
-- ⚡ Lightning-fast performance with Next.js 15
-- 📱 Mobile-first approach
-- 🎭 Smooth animations and transitions
-- 📝 Integrated blog system
-- 📧 Contact form with validation
-- 📄 Downloadable CV/Resume
-- 🔍 SEO optimized
+## Running it
 
-## 🏗️ Project Structure
-
-```
-├── app/
-│   ├── components/          # Reusable React components
-│   ├── blog/               # Blog pages and posts
-│   ├── contact/            # Contact page
-│   └── globals.css         # Global styles
-├── public/
-│   └── david-kieu-cv.pdf   # CV/Resume download
-└── README.md
+```bash
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-## 🚀 Getting Started
+## Checks
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/davidkieu-dev/portfolio-website.git
-   cd portfolio-website
-   ```
+```bash
+npm run lint     # eslint
+npm test         # vitest
+npm run build    # next build
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+CI runs all three plus a `docker build` on every push and pull request
+(`.github/workflows/ci.yml`). The tests cover the blog data contract —
+posts have unique, URL-safe slugs, the required fields, and a positive
+read time — because `/blog/[slug]` breaks at runtime otherwise.
 
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+## Editing content
 
-4. **Open in browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+Most of the text lives in two files:
 
-## 📱 Responsive Design
+| What | Where |
+|---|---|
+| Intro, about, skills, contact copy | `app/page.js` |
+| Project cards | `app/components/Projects.js` |
+| Blog posts | `app/blog/posts.js` |
+| CV PDF | `public/david-kieu-cv.pdf` |
 
-The website is fully responsive and optimized for all devices:
-- 📱 Mobile (320px and up)
-- 📱 Tablet (768px and up)
-- 💻 Desktop (1024px and up)
-- 🖥️ Large screens (1200px and up)
+Colours and type scale are Tailwind tokens in `app/globals.css` and
+`tailwind.config.mjs`.
 
-## 🎨 Key Components
+## Deployment
 
-### Navigation
-- Responsive navigation with mobile hamburger menu
-- Smooth scrolling to sections
-- Dark/light mode toggle
+Vercel builds from `main` on push. There's also a multi-stage `Dockerfile`
+for running it anywhere else; see `DEPLOYMENT.md` for both paths.
 
-### Hero Section
-- Animated typewriter effect
-- Professional introduction
-- Direct links to work and contact
+## Contact
 
-### Projects Showcase
-- Interactive project cards
-- Technology stack highlights
-- Live demo and source code links
+- Email: [david.kieu25@gmail.com](mailto:david.kieu25@gmail.com)
+- GitHub: [@monsieurkd](https://github.com/monsieurkd)
+- LinkedIn: [david-kieu-tech](https://linkedin.com/in/david-kieu-tech)
 
-### Skills Section
-- Visual skill level indicators
-- Technology icons and descriptions
-- Responsive grid layout
+## License
 
-### Blog System
-- Category filtering
-- Reading time estimates
-- SEO-friendly URLs
-
-### Contact Form
-- Form validation
-- Professional contact methods
-- Social media links
-
-## 🔧 Customization
-
-To customize this portfolio for your own use:
-
-1. Update personal information in `app/page.js`
-2. Replace project data with your own projects
-3. Update contact information in `app/contact/page.js`
-4. Add your CV/resume to `public/` directory
-5. Customize colors in `tailwind.config.mjs`
-
-## 📈 Performance
-
-- ⚡ 95+ Lighthouse Performance Score
-- 🎯 Core Web Vitals optimized
-- 📦 Optimized bundle size
-- 🖼️ Image optimization with Next.js
-
-## 🔒 SEO Features
-
-- Meta tags optimization
-- Structured data markup
-- XML sitemap generation
-- robots.txt configuration
-- Open Graph tags
-
-## 📧 Contact
-
-- **Email**: david.kieu@protonmail.com
-- **LinkedIn**: [linkedin.com/in/davidkieu-dev](https://linkedin.com/in/davidkieu-dev)
-- **GitHub**: [github.com/davidkieu-dev](https://github.com/davidkieu-dev)
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- Vercel for hosting and deployment platform
-
----
-
-**Built with ❤️ by David Kieu**
+MIT — see [LICENSE](LICENSE).

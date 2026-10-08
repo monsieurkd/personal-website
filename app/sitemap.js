@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://davidkieu.dev";
+  const baseUrl = "https://david-kieu-personal-website.vercel.app";
 
   return [
     {

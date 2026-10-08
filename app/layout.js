@@ -14,36 +14,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://davidkieu.dev"),
+  metadataBase: new URL("https://david-kieu-personal-website.vercel.app"),
   title: {
-    default: "David Kieu — Software Engineer",
+    default: "David Kieu — Data Engineer",
     template: "%s · David Kieu",
   },
   description:
-    "David Kieu is a software engineer and Computer Science student at the University of Adelaide, working across full-stack development, computer vision, and game development.",
+    "David Kieu is a data engineer and Computer Science (AI) student at the University of Adelaide, building tested, reproducible data pipelines in Python, SQL, dbt and DuckDB.",
   keywords: [
     "David Kieu",
-    "software engineer",
-    "full-stack developer",
-    "computer vision",
-    "React",
-    "Next.js",
+    "data engineer",
+    "data engineering",
+    "dbt",
+    "DuckDB",
+    "Python",
+    "SQL",
+    "ETL",
+    "Adelaide",
     "Python",
     "portfolio",
   ],
   authors: [{ name: "David Kieu" }],
   openGraph: {
-    title: "David Kieu — Software Engineer",
+    title: "David Kieu — Data Engineer",
     description:
-      "Software engineer and CS student at the University of Adelaide — full-stack, computer vision, and game development.",
+      "Data engineer and CS (AI) student at the University of Adelaide — reproducible pipelines, dbt, DuckDB, Python and SQL.",
     type: "website",
     locale: "en_AU",
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Kieu — Software Engineer",
+    title: "David Kieu — Data Engineer",
     description:
-      "Software engineer and CS student at the University of Adelaide.",
+      "Data engineer and CS (AI) student at the University of Adelaide.",
   },
 };
 
