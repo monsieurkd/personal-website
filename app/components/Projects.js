@@ -30,7 +30,7 @@ const PROJECTS = [
     description:
       "An autonomous multi-agent system that drives a data-engineering task end-to-end through role-specialised subagents (Planner, Builder, Verifier) in a plan-build-verify loop that returns a machine-checkable pass/fail. Reliability comes from agent design rather than prompting — each role has restricted tools and a file-based data contract is the sole hand-off between stages.",
     tech: ["Multi-agent orchestration", "Claude Code subagents", "Python"],
-    href: "https://github.com/monsieurkd",
+    href: "https://github.com/monsieurkd/Asian_taste_Vietnamese_cuisine/tree/main/scripts/swarm",
   },
   {
     title: "Voice Debrief",
@@ -70,7 +70,7 @@ const PROJECTS = [
     description:
       "A full-stack restaurant platform with an ASP.NET Core Web API (Dapper and parameterised raw SQL on PostgreSQL) and React frontends. Modelled a normalised PostgreSQL schema with constraints and indexes backing the hot read paths, routed real-time order data over WebSockets, and persisted third-party events (Stripe payments, Lightspeed POS sync) consistently alongside order records.",
     tech: ["C#", "ASP.NET Core", "Dapper", "PostgreSQL", "React"],
-    href: "https://github.com/monsieurkd",
+    href: "https://github.com/monsieurkd/Asian_taste_Vietnamese_cuisine",
   },
 ];
 
