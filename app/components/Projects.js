@@ -25,6 +25,14 @@ const PROJECTS = [
     href: "https://github.com/monsieurkd/rosbag-de-pipeline",
   },
   {
+    title: "Fresh Shelf Ops — Waste-versus-Revenue Decision Pipeline",
+    categories: ["data"],
+    description:
+      "A dbt-on-DuckDB warehouse over eight stores and a simulated year of supermarket trading: dirty files land with sha256 content addressing, dedupe and quarantine, then build through staging and a reconciling stock ledger into eight marts. Measured $37.7M net sales against $645k recorded waste, $1.37M markdown erosion and $144k unexplained shrink — three losses with three different fixes, never summed. The answer it reports is the uncomfortable one: ordering less does not pay for itself, because the margin forgone per unit is roughly 24x the cost of a unit wasted.",
+    tech: ["Python", "dbt", "DuckDB", "Parquet", "PyTest"],
+    href: "https://github.com/monsieurkd/fresh-shelf-ops",
+  },
+  {
     title: "Multi-Agent Data-Engineering Swarm",
     categories: ["ai", "data"],
     description:
@@ -68,7 +76,7 @@ const PROJECTS = [
     title: "Restaurant Management Platform",
     categories: ["swe", "data"],
     description:
-      "A full-stack restaurant platform with an ASP.NET Core Web API (Dapper and parameterised raw SQL on PostgreSQL) and React frontends. Modelled a normalised PostgreSQL schema with constraints and indexes backing the hot read paths, routed real-time order data over WebSockets, and persisted third-party events (Stripe payments, Lightspeed POS sync) consistently alongside order records.",
+      "A full-stack restaurant platform with an ASP.NET Core Web API (Dapper and parameterised raw SQL on PostgreSQL) and React frontends. Modelled a normalised PostgreSQL schema with constraints and indexes backing the hot read paths, routed real-time order data over WebSockets, and persisted third-party events (Stripe payments, Lightspeed POS sync) consistently alongside order records. The staff kitchen console came later and taught the harder lessons: a dish-by-dish flow where one shared component renders the board, the order table and the ticket page, a tick that can never move an order backwards, and a ready-to-collect email claimed exactly once against a guarded UPDATE so it cannot be sent twice.",
     tech: ["C#", "ASP.NET Core", "Dapper", "PostgreSQL", "React"],
     href: "https://github.com/monsieurkd/Asian_taste_Vietnamese_cuisine",
   },

@@ -42,7 +42,7 @@ const FAQ = [
   },
   {
     q: "What types of projects do you take on?",
-    a: "Data pipelines and analytics work, plus the AI/ML and computer-vision projects behind them — typically in Python, SQL, dbt, and PostgreSQL.",
+    a: "Data pipelines and analytics work, plus the AI/ML and computer-vision projects behind them — typically in Python, SQL, dbt, DuckDB and PostgreSQL.",
   },
   {
     q: "Are you open to remote or international work?",

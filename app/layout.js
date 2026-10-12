@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s · David Kieu",
   },
   description:
-    "David Kieu is a data engineer and Computer Science (AI) student at the University of Adelaide, building tested, reproducible data pipelines in Python, SQL, dbt and DuckDB.",
+    "David Kieu is a data engineer and Computer Science (AI) graduate of the University of Adelaide, building tested, reproducible data pipelines in Python, SQL, dbt and DuckDB.",
   keywords: [
     "David Kieu",
     "data engineer",
@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     title: "David Kieu — Data Engineer",
     description:
-      "Data engineer and CS (AI) student at the University of Adelaide — reproducible pipelines, dbt, DuckDB, Python and SQL.",
+      "Data engineer and CS (AI) graduate of the University of Adelaide — reproducible pipelines, dbt, DuckDB, Python and SQL.",
     type: "website",
     locale: "en_AU",
   },
@@ -46,7 +46,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "David Kieu — Data Engineer",
     description:
-      "Data engineer and CS (AI) student at the University of Adelaide.",
+      "Data engineer and CS (AI) graduate of the University of Adelaide.",
   },
 };
 
