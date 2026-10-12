@@ -16,7 +16,7 @@ export default function Footer() {
               David Kieu
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              Software engineer building thoughtful, performant software.
+              Data engineer building tested, reproducible pipelines.
               Based in Adelaide, Australia — open to opportunities.
             </p>
           </div>

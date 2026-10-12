@@ -13,7 +13,9 @@ Tailwind CSS, and deployed on Vercel.
 - **CV** — `public/david-kieu-cv.pdf`, linked from the home page
 
 The projects section groups work by discipline (AI/ML, data engineering,
-software), and the filter tabs are just client-side state over one array.
+software), and the filter tabs are just client-side state over one array. It
+currently carries seven cards, most recently the Fresh Shelf Ops
+waste-versus-revenue warehouse and the restaurant platform's staff console.
 
 ## Blog posts
 
@@ -57,7 +59,12 @@ Most of the text lives in two files:
 | Intro, about, skills, contact copy | `app/page.js` |
 | Project cards | `app/components/Projects.js` |
 | Blog posts | `app/blog/posts.js` |
+| SEO metadata, social cards | `app/layout.js` |
+| Sitemap entries | `app/sitemap.js` |
 | CV PDF | `public/david-kieu-cv.pdf` |
+
+Project card copy is kept in step with the verified, repo-backed claims in
+`cvkit`'s `data/base.yaml`, so the site and the CV never drift apart.
 
 Colours and type scale are Tailwind tokens in `app/globals.css` and
 `tailwind.config.mjs`.

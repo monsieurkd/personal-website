@@ -37,7 +37,7 @@ const SKILL_GROUPS = [
 ];
 
 const FACTS = [
-  { icon: GraduationCap, label: "Education", value: "B. Computer Science (AI), Univ. of Adelaide" },
+  { icon: GraduationCap, label: "Education", value: "B. Computer Science (AI), Univ. of Adelaide — graduated 2026, GPA 6.375/7.0" },
   { icon: Briefcase, label: "Experience", value: "Research Intern (ML) at Univ. of Adelaide; Kaopiz, Ecosmartvietnam" },
   { icon: MapPin, label: "Location", value: "Adelaide, Australia" },
   { icon: Sparkles, label: "Focus", value: "Data Engineering · Pipelines · Analytics" },
@@ -91,8 +91,8 @@ export default function Home() {
               I build data pipelines that hold up in production — reliable,
               tested, and reproducible from raw source to queryable tables. I
               work in Python, SQL, dbt and DuckDB, with a background in AI and
-              machine learning. Computer Science student at the University of
-              Adelaide.
+              machine learning. Computer Science (AI) graduate of the University
+              of Adelaide.
             </p>
           </Reveal>
 
@@ -150,11 +150,11 @@ export default function Home() {
             <Reveal delay={0.05}>
               <div className="space-y-5 text-lg leading-relaxed text-ink">
                 <p>
-                  I&apos;m David, a Computer Science (AI) student at the University
-                  of Adelaide. I build data pipelines end-to-end — ingestion,
-                  modelling and the quality checks that make the output
-                  trustworthy — and I care as much about whether a pipeline can
-                  be re-run as whether it runs at all.
+                  I&apos;m David, a Computer Science (AI) graduate of the
+                  University of Adelaide. I build data pipelines end-to-end —
+                  ingestion, modelling and the quality checks that make the
+                  output trustworthy — and I care as much about whether a
+                  pipeline can be re-run as whether it runs at all.
                 </p>
                 <p className="text-muted">
                   Most recently I&apos;ve been a Research Intern in Machine

@@ -110,8 +110,9 @@ export default function BlogPost() {
                   David Kieu
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted">
-                  Software engineer and Computer Science student at the University
-                  of Adelaide — AI/ML, data engineering, and full-stack software.
+                  Data engineer and Computer Science (AI) graduate of the
+                  University of Adelaide — data pipelines, AI/ML, and full-stack
+                  software.
                 </p>
                 <div className="mt-3 flex gap-4 text-sm">
                   <a
